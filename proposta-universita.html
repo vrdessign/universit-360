@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta Università — tourvirtuale.digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,700;0,800;0,900;1,300&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#F5820D;--ol:#FF9A2E;--od:#D96A00;
+  --navy:#1E3557;--nl:#2A4A78;--nd:#111E33;
+  --blue:#3A8FCC;--teal:#1A7A6E;--tl:#25A898;
+  --purple:#5B4FCF;--pl:#7B6FE8;
+  --white:#fff;--off:#F8F9FC;--cream:#F5F0E8;
+  --muted:#6B7A94;--border:#DDE3EE;--ink:#0F1A2E;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',sans-serif;background:var(--white);color:var(--ink);font-size:15px;line-height:1.7}
+
+@media print{
+  .no-print{display:none!important}
+  .slide{page-break-after:always;page-break-inside:avoid}
+  @page{margin:0;size:A4 landscape}
+}
+
+/* TOP BAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--nd);display:flex;align-items:center;justify-content:space-between;padding:11px 32px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.tl{display:flex;align-items:center;gap:10px}
+.tl-text{font-family:'Nunito',sans-serif;font-weight:800;font-size:17px;color:white}
+.tl-text span{color:var(--orange)}
+.tr{display:flex;align-items:center;gap:14px}
+.tlabel{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase}
+.pbtn{background:linear-gradient(135deg,var(--orange),var(--ol));color:white;border:none;padding:9px 20px;border-radius:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.5px}
+
+/* SLIDE */
+.slide{min-height:100vh;width:100%;display:flex;flex-direction:column;padding-top:56px}
+.inner{padding:68px 8%;flex:1;display:flex;flex-direction:column}
+
+/* SHARED */
+.sec-label{display:inline-flex;align-items:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+.sec-label::before{content:'';width:20px;height:2px;background:var(--orange);display:block;flex-shrink:0}
+.sec-label.inv{color:rgba(255,255,255,0.45)}
+.sec-title{font-family:'Nunito',sans-serif;font-size:clamp(26px,3.5vw,48px);font-weight:900;line-height:1.1;color:var(--ink);margin-bottom:12px}
+.sec-title .o{color:var(--orange)}
+.sec-title .p{color:var(--purple)}
+.sec-title.inv{color:white}
+.sec-sub{font-size:15px;color:var(--muted);max-width:660px;line-height:1.9;margin-bottom:40px}
+.sec-sub.inv{color:rgba(255,255,255,0.5)}
+.tc{text-align:center}
+
+.sfoot{padding:14px 8%;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:var(--off)}
+.sfoot.inv{border-top-color:rgba(255,255,255,0.07);background:rgba(0,0,0,0.2)}
+.fbrand{display:flex;align-items:center;gap:8px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;color:var(--navy)}
+.fbrand span{color:var(--orange)}
+.fbrand.inv{color:white}
+.finfo{font-size:11px;color:var(--muted)}
+.finfo.inv{color:rgba(255,255,255,0.25)}
+
+/* PIANO */
+.piano{background:white;border:1px solid var(--border);border-radius:18px;padding:28px 22px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.piano:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(30,53,87,.1)}
+.piano::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--orange),var(--blue))}
+.piano.feat{background:linear-gradient(160deg,var(--nd),var(--navy));border-color:transparent;box-shadow:0 20px 56px rgba(30,53,87,.3);transform:scale(1.02)}
+.piano.feat:hover{transform:scale(1.02) translateY(-4px)}
+.piano.vid::before{background:linear-gradient(90deg,var(--purple),var(--teal))}
+.piano-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;background:linear-gradient(90deg,var(--orange),var(--ol));color:white;margin-bottom:12px}
+.piano-badge.p{background:linear-gradient(90deg,var(--purple),var(--pl))}
+.piano-target{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:4px}
+.piano.feat .piano-target{color:rgba(255,255,255,.4)}
+.piano h3{font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:var(--navy);margin-bottom:10px}
+.piano.feat h3{color:white}
+.piano-price{font-family:'Nunito',sans-serif;font-size:40px;font-weight:900;color:var(--orange);line-height:1;margin:10px 0 16px}
+.piano-price small{font-size:12px;font-weight:400;color:var(--muted);font-family:'Nunito Sans',sans-serif}
+.piano.feat .piano-price small{color:rgba(255,255,255,.35)}
+.piano.vid .piano-price{color:var(--purple)}
+.piano.feat.vid .piano-price{color:#A89EFF}
+.piano ul{list-style:none}
+.piano ul li{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--ink)}
+.piano.feat ul li{border-bottom-color:rgba(255,255,255,.07);color:rgba(255,255,255,.75)}
+.piano ul li:last-child{border-bottom:none}
+.piano ul li::before{content:'✓';color:var(--orange);font-weight:900;flex-shrink:0}
+.piano.vid ul li::before{color:var(--purple)}
+.piano.feat ul li::before{color:var(--ol)}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+
+/* VIDEO PRICE TABLE */
+.vid-table{background:white;border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:8px}
+.vid-table-head{background:linear-gradient(135deg,var(--nd),var(--navy));padding:18px 28px;display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.5fr;gap:16px;align-items:center}
+.vid-table-head span{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+.vid-table-head span:first-child{color:rgba(255,255,255,0.7)}
+.vid-row{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.5fr;gap:16px;align-items:center;padding:16px 28px;border-bottom:1px solid var(--border);transition:background .15s}
+.vid-row:last-child{border-bottom:none}
+.vid-row:hover{background:var(--off)}
+.vid-row.highlight{background:linear-gradient(135deg,rgba(91,79,207,.04),rgba(245,130,13,.03));border-left:3px solid var(--purple)}
+.vid-row.highlight:hover{background:linear-gradient(135deg,rgba(91,79,207,.08),rgba(245,130,13,.05))}
+.vr-name{font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;color:var(--navy)}
+.vr-sub{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
+.vr-price{font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:var(--purple)}
+.vr-price small{font-size:11px;font-weight:400;color:var(--muted);font-family:'Nunito Sans',sans-serif;display:block;margin-top:1px}
+.vr-total{font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--orange)}
+.vr-total small{font-size:11px;font-weight:400;color:var(--muted);font-family:'Nunito Sans',sans-serif;display:block}
+.vr-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 11px;border-radius:20px}
+.badge-tech{background:rgba(58,143,204,0.1);color:var(--blue)}
+.badge-cinema{background:rgba(91,79,207,0.12);color:var(--purple)}
+.badge-pop{background:linear-gradient(90deg,var(--orange),var(--ol));color:white}
+
+/* NOTE BOX */
+.note-box{background:linear-gradient(135deg,rgba(91,79,207,.06),rgba(245,130,13,.04));border:1px solid rgba(91,79,207,.2);border-radius:12px;padding:18px 24px;margin-top:16px;font-size:13.5px;color:var(--navy);line-height:1.8}
+.note-box strong{color:var(--od)}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:48px}
+.steps::before{content:'';position:absolute;top:34px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(90deg,var(--orange),var(--blue))}
+.step{text-align:center;padding:0 14px}
+.step-n{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:24px;font-weight:900;color:white;margin:0 auto 16px;position:relative;z-index:1;border:4px solid white;box-shadow:0 0 0 2px var(--border),0 8px 20px rgba(30,53,87,.2)}
+.step-n.s-o{background:linear-gradient(135deg,var(--orange),var(--ol));box-shadow:0 0 0 2px var(--border),0 8px 24px rgba(245,130,13,.3)}
+.step-n.s-n{background:linear-gradient(135deg,var(--navy),var(--nl))}
+.step h4{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.step p{font-size:12.5px;color:var(--muted);line-height:1.7}
+
+/* TERMS */
+.terms-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
+.terms-box{background:var(--off);border:1px solid var(--border);border-radius:14px;padding:26px}
+.terms-box h3{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.terms-ul{list-style:none}
+.terms-ul li{padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--ink);display:flex;gap:9px;align-items:flex-start}
+.terms-ul li:last-child{border-bottom:none}
+.terms-ul li::before{content:'✓';color:var(--orange);font-weight:900;flex-shrink:0}
+.validity{background:linear-gradient(135deg,var(--purple),var(--pl));border-radius:10px;padding:14px 24px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.validity .vt{font-size:13px;font-weight:700;color:white}
+.validity .vd{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;color:white}
+.firma-block{background:linear-gradient(160deg,var(--nd),var(--navy));border-radius:16px;padding:32px 40px;display:grid;grid-template-columns:1fr auto 1fr;gap:28px;align-items:center}
+.fp h4{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:4px}
+.fp .fr{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px}
+.fp .fl{border-bottom:1px solid rgba(255,255,255,.2);height:36px;margin-bottom:8px}
+.fp .flab{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:1px}
+.fp .fd{font-size:11px;color:rgba(255,255,255,.25);margin-top:10px}
+.fsep{width:1px;background:rgba(255,255,255,.1);align-self:stretch}
+.fdate{text-align:center}
+.fdate .fdl{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.fdate .fdv{font-family:'Nunito',sans-serif;font-size:16px;font-weight:700;color:#A89EFF}
+
+/* CTA */
+#s8{background:linear-gradient(135deg,var(--nd),var(--navy),var(--nl));position:relative;overflow:hidden}
+#s8::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(91,79,207,.2) 0%,transparent 65%);top:-200px;right:-150px}
+.cta-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 8%;position:relative;z-index:2;text-align:center}
+.cta-title{font-family:'Nunito',sans-serif;font-size:clamp(30px,5vw,62px);font-weight:900;color:white;line-height:1.1;margin-bottom:14px}
+.cta-sub{font-size:17px;color:rgba(255,255,255,.7);max-width:540px;margin-bottom:40px;line-height:1.8}
+.cta-box{background:white;border-radius:16px;padding:32px 40px;max-width:500px;width:100%;text-align:left;box-shadow:0 20px 56px rgba(0,0,0,.2)}
+.cta-box-title{font-family:'Nunito',sans-serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:18px}
+.cta-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)}
+.cta-row:last-child{border-bottom:none}
+.cta-ico{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,rgba(245,130,13,.1),rgba(245,130,13,.05));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.cta-rl{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.cta-rv{font-size:14px;color:var(--ink);font-weight:700}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .grid-2,.grid-3,.grid-4,.terms-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .steps::before{display:none}
+  .firma-block{grid-template-columns:1fr}
+  .fsep{display:none}
+  .vid-table-head,.vid-row{grid-template-columns:1fr 1fr;gap:8px}
+  .vid-table-head span:nth-child(3),.vid-row .vr-badge{display:none}
+  .tlabel{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar no-print">
+  <div class="tl">
+    <svg width="30" height="36" viewBox="0 0 100 120" fill="none">
+      <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9A2E"/><stop offset="100%" stop-color="#F5820D"/></linearGradient></defs>
+      <path d="M50 4C30 4 14 20 14 40C14 62 50 116 50 116C50 116 86 62 86 40C86 20 70 4 50 4Z" fill="url(#pg)"/>
+      <rect x="34" y="42" width="32" height="22" rx="2" fill="#3A8FCC"/>
+      <polygon points="32,42 50,26 68,42" fill="#2A6FA8"/>
+      <ellipse cx="52" cy="62" rx="38" ry="11" fill="none" stroke="#3A8FCC" stroke-width="2.5" stroke-dasharray="4 2"/>
+    </svg>
+    <div class="tl-text">tourvirtuale<span>.digital</span></div>
+  </div>
+  <div class="tr">
+    <span class="tlabel">Proposta Università 2025</span>
+    <button class="pbtn" onclick="window.print()">🖨️ Stampa / PDF</button>
+  </div>
+</div>
+
+<!-- ══ S1 COVER ══ -->
+<div class="slide" id="s1" style="background:linear-gradient(145deg,var(--nd) 0%,var(--navy) 55%,var(--nl) 100%);position:relative;overflow:hidden">
+  <div style="position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(91,79,207,0.18) 0%,transparent 65%);top:-200px;right:-100px"></div>
+  <div style="position:absolute;width:450px;height:450px;border-radius:50%;background:radial-gradient(circle,rgba(245,130,13,0.12) 0%,transparent 65%);bottom:-80px;left:-60px"></div>
+
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:96px 8% 56px;position:relative;z-index:2">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(91,79,207,0.2);border:1px solid rgba(91,79,207,0.4);color:#A89EFF;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:7px 16px;border-radius:4px;width:fit-content;margin-bottom:28px">🎓 Proposta Servizi per Atenei · 2025</div>
+    <h1 style="font-family:'Nunito',sans-serif;font-size:clamp(36px,6vw,76px);font-weight:900;line-height:1.0;color:white;margin-bottom:20px">
+      Tour Virtuali <span style="color:#A89EFF">360°</span><br/>
+      &amp; Video Immersivi<br/>
+      per le <span style="color:var(--orange)">Università</span>
+    </h1>
+    <p style="font-size:17px;color:rgba(255,255,255,0.55);max-width:560px;line-height:1.85;margin-bottom:44px;font-weight:300">Tour virtuali navigabili, video cinematografici 360°/180° VR e Digital Twin LiDAR per campus e atenei. Accessibili 24/7, in qualsiasi lingua, su qualsiasi dispositivo.</p>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px">
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:30px;padding:9px 18px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7)"><div style="width:7px;height:7px;border-radius:50%;background:var(--orange)"></div>Tour 360° navigabili</div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:30px;padding:9px 18px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7)"><div style="width:7px;height:7px;border-radius:50%;background:var(--orange)"></div>Video 360°/180° VR</div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:30px;padding:9px 18px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7)"><div style="width:7px;height:7px;border-radius:50%;background:var(--orange)"></div>Prezzi al minuto trasparenti</div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:30px;padding:9px 18px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7)"><div style="width:7px;height:7px;border-radius:50%;background:var(--orange)"></div>Consegna in 7 giorni</div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 28px;text-align:center">
+        <div style="font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:white;margin-bottom:3px">tourvirtuale.digital</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:1.5px;text-transform:uppercase">Fornitore del Servizio</div>
+      </div>
+      <div style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:300;color:rgba(255,255,255,0.18)">×</div>
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 28px;text-align:center">
+        <div style="font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:white;margin-bottom:3px">[Nome Ateneo]</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:1.5px;text-transform:uppercase">Ente Committente</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;background:rgba(0,0,0,0.25);border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:2">
+    <div style="flex:1;padding:22px 0;text-align:center;border-right:1px solid rgba(255,255,255,0.06)"><div style="font-family:'Nunito',sans-serif;font-size:30px;font-weight:900;color:var(--orange);line-height:1">360°</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:3px;letter-spacing:1px;text-transform:uppercase">Tour navigabile</div></div>
+    <div style="flex:1;padding:22px 0;text-align:center;border-right:1px solid rgba(255,255,255,0.06)"><div style="font-family:'Nunito',sans-serif;font-size:30px;font-weight:900;color:var(--orange);line-height:1">180°</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:3px;letter-spacing:1px;text-transform:uppercase">Video VR stereo</div></div>
+    <div style="flex:1;padding:22px 0;text-align:center;border-right:1px solid rgba(255,255,255,0.06)"><div style="font-family:'Nunito',sans-serif;font-size:30px;font-weight:900;color:var(--orange);line-height:1">+40%</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:3px;letter-spacing:1px;text-transform:uppercase">Candidature intl.</div></div>
+    <div style="flex:1;padding:22px 0;text-align:center;border-right:1px solid rgba(255,255,255,0.06)"><div style="font-family:'Nunito',sans-serif;font-size:30px;font-weight:900;color:var(--orange);line-height:1">7gg</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:3px;letter-spacing:1px;text-transform:uppercase">Consegna</div></div>
+    <div style="flex:1;padding:22px 0;text-align:center"><div style="font-family:'Nunito',sans-serif;font-size:30px;font-weight:900;color:var(--orange);line-height:1">8K</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:3px;letter-spacing:1px;text-transform:uppercase">Risoluzione max</div></div>
+  </div>
+</div>
+
+<!-- ══ S2 PERCHÉ ══ -->
+<div class="slide" id="s2" style="background:var(--white)">
+  <div class="inner">
+    <div class="sec-label">Il Contesto</div>
+    <h2 class="sec-title">Perché le università hanno bisogno<br/>di contenuti <span class="o">immersivi</span></h2>
+    <p class="sec-sub">Il 73% degli studenti visita digitalmente un campus prima di presentare la domanda di iscrizione. Chi non offre questa esperienza perde candidati — soprattutto internazionali.</p>
+
+    <div class="grid-3">
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:28px 24px;position:relative;overflow:hidden;transition:transform .2s">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--blue))"></div>
+        <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;background:rgba(91,79,207,.1)">🌍</div>
+        <h3 style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy);margin-bottom:8px">Studenti internazionali</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.85">Non possono visitare fisicamente l'ateneo prima di iscriversi. Il tour virtuale è il loro unico modo di "entrare" nel campus. +35% di candidature internazionali in media.</p>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:28px 24px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--blue))"></div>
+        <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;background:rgba(91,79,207,.1)">📱</div>
+        <h3 style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy);margin-bottom:8px">Open Day permanente</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.85">Un Open Day fisico raggiunge solo chi abita nelle vicinanze. Il tour virtuale è accessibile 24h su 24, in qualsiasi lingua, da qualsiasi dispositivo — ogni giorno è Open Day.</p>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:28px 24px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--blue))"></div>
+        <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;background:rgba(91,79,207,.1)">🏆</div>
+        <h3 style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy);margin-bottom:8px">Posizionamento e ranking</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.85">La presenza digitale del campus influenza la percezione di qualità dell'ateneo. Un video 360° professionale comunica eccellenza e modernità — fattori rilevanti nei ranking internazionali.</p>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:28px 24px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--blue))"></div>
+        <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;background:rgba(91,79,207,.1)">♿</div>
+        <h3 style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy);margin-bottom:8px">Accessibilità e inclusione</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.85">Studenti con disabilità motorie, residenti lontani, famiglie con difficoltà a spostarsi: il tour abbatte tutte le barriere fisiche garantendo pari accesso alle informazioni.</p>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:28px 24px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--blue))"></div>
+        <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;background:rgba(91,79,207,.1)">🔬</div>
+        <h3 style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy);margin-bottom:8px">Valorizza laboratori</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.85">Biblioteche, laboratori, aule magistrali, campi sportivi: il tour mostra ogni struttura nel dettaglio — argomento decisivo nella scelta dell'ateneo da parte degli studenti.</p>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:28px 24px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--blue))"></div>
+        <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;background:rgba(91,79,207,.1)">📊</div>
+        <h3 style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy);margin-bottom:8px">Dati e analytics</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.85">Ogni visita virtuale genera dati: quali ambienti interessano di più, da dove arrivano i visitatori, tempo per facoltà. Informazioni preziose per il recruiting internazionale.</p>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,var(--nd),var(--navy));border-radius:14px;padding:22px 32px;border-left:4px solid var(--orange);font-size:16px;font-style:italic;font-weight:300;color:rgba(255,255,255,.8);line-height:1.8;margin-top:24px">
+      "Per uno studente di Barcellona, Tokyo o Lagos, il tour virtuale del campus è la prima — e spesso unica — visita che può fare prima di decidere dove studiare. Quella visita deve essere <strong style="color:var(--ol);font-style:normal">straordinaria</strong>."
+    </div>
+  </div>
+  <div class="sfoot">
+    <div class="fbrand">tourvirtuale<span>.digital</span></div>
+    <div class="finfo">Proposta Servizi · Università · 2025</div>
+  </div>
+</div>
+
+<!-- ══ S3 TOUR 360 ══ -->
+<div class="slide" id="s3" style="background:var(--off)">
+  <div class="inner">
+    <div class="sec-label">Servizio 01 · Tour 360° Navigabili</div>
+    <h2 class="sec-title">Tre piani, un campus <span class="o">sempre aperto</span></h2>
+    <p class="sec-sub">Tour navigabili ad alta risoluzione per presentare il campus a studenti di tutto il mondo — su Google Maps, sito istituzionale e visori VR.</p>
+
+    <div class="grid-3">
+      <div class="piano">
+        <div class="piano-badge">Starter</div>
+        <div class="piano-target">Piccoli atenei · Singola facoltà</div>
+        <h3>Campus Essenziale</h3>
+        <div class="piano-price">€1.390<small> una tantum</small></div>
+        <ul>
+          <li>Tour 360° fino a 8 ambienti</li>
+          <li>Hotspot informativi base</li>
+          <li>Pubblicazione Google Business</li>
+          <li>Embed sul sito istituzionale</li>
+          <li>1 revisione inclusa</li>
+          <li>Consegna in 7 giorni lavorativi</li>
+        </ul>
+      </div>
+      <div class="piano feat">
+        <div class="piano-badge">⭐ Più Scelto</div>
+        <div class="piano-target">Atenei medi · Multi-facoltà</div>
+        <h3>Campus Pro</h3>
+        <div class="piano-price">€2.390<small> una tantum</small></div>
+        <ul>
+          <li>Tour 360° fino a 20 ambienti</li>
+          <li>Hotspot avanzati + link e info</li>
+          <li>Mappa interattiva del campus</li>
+          <li>Navigazione per facoltà</li>
+          <li>Branding ateneo integrato</li>
+          <li>Ottimizzazione SEO + Google Maps</li>
+          <li>Report analytics 12 mesi</li>
+          <li>2 revisioni incluse</li>
+        </ul>
+      </div>
+      <div class="piano">
+        <div class="piano-badge">Premium</div>
+        <div class="piano-target">Grandi atenei · Campus completo</div>
+        <h3>Campus Full</h3>
+        <div class="piano-price">€3.990<small> una tantum</small></div>
+        <ul>
+          <li>Tour 360° ambienti illimitati</li>
+          <li>Mappa georeferenziata interattiva</li>
+          <li>Tour separati per ogni facoltà</li>
+          <li>VR Ready per eventi Open Day</li>
+          <li>Distribuzione multi-piattaforma</li>
+          <li>Report analytics 24 mesi</li>
+          <li>Supporto prioritario 2 anni</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="margin-top:18px;font-size:13px;color:var(--muted)">💡 <strong style="color:var(--navy)">Manutenzione annuale:</strong> €290/anno per aggiornamenti stagionali, nuovi ambienti e rinnovo immagini a tariffa ridotta.</p>
+  </div>
+  <div class="sfoot">
+    <div class="fbrand">tourvirtuale<span>.digital</span></div>
+    <div class="finfo">Proposta Servizi · Università · 2025</div>
+  </div>
+</div>
+
+<!-- ══ S4 VIDEO PREZZI ══ -->
+<div class="slide" id="s4" style="background:var(--white)">
+  <div class="inner">
+    <div class="sec-label" style="color:var(--purple)"><span style="width:20px;height:2px;background:var(--purple);display:block"></span>Servizio 02 · Video Immersivi 360°/180° VR</div>
+    <h2 class="sec-title">Prezzi <span style="color:var(--purple)">al minuto</span>,<br/>qualità <span class="o">cinematografica</span></h2>
+    <p class="sec-sub" style="margin-bottom:28px">Due fasce tecnologiche distinte. Il prezzo è calcolato per minuto di video finito — così paghi esattamente quello che ti serve, senza sorprese.</p>
+
+    <!-- TABELLA PREZZI AL MINUTO -->
+    <div class="vid-table">
+      <div class="vid-table-head">
+        <span>Formato &amp; Tecnologia</span>
+        <span>Prezzo / minuto</span>
+        <span>Durata tipica</span>
+        <span>Esempio di costo</span>
+      </div>
+
+      <!-- FASCIA 1 -->
+      <div style="padding:10px 28px 4px;background:rgba(58,143,204,0.04)">
+        <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue)">◆ Fascia Technology · fino a 5.7K</span>
+      </div>
+
+      <div class="vid-row">
+        <div>
+          <div class="vr-name">Video 180° VR · Stereoscopico</div>
+          <div class="vr-sub">Risoluzione fino a 5.7K · Compatible Meta Quest, PSVR<br/>Ideale: presentazioni campus, aule, residenze</div>
+        </div>
+        <div>
+          <div class="vr-price">€1.000<small>a minuto</small></div>
+        </div>
+        <div>
+          <span class="vr-badge badge-tech">Technology 5.7K</span>
+        </div>
+        <div>
+          <div class="vr-total">da €3.000<small>per 3 minuti</small></div>
+        </div>
+      </div>
+
+      <div class="vid-row">
+        <div>
+          <div class="vr-name">Video 360° Sferico · Full</div>
+          <div class="vr-sub">Risoluzione fino a 5.7K · YouTube 360°, web embed<br/>Ideale: tour guidati, campus walk, outdoor</div>
+        </div>
+        <div>
+          <div class="vr-price">€1.000<small>a minuto</small></div>
+        </div>
+        <div>
+          <span class="vr-badge badge-tech">Technology 5.7K</span>
+        </div>
+        <div>
+          <div class="vr-total">da €5.000<small>per 5 minuti</small></div>
+        </div>
+      </div>
+
+      <!-- SEPARATOR -->
+      <div style="padding:10px 28px 4px;background:rgba(91,79,207,0.05);border-top:1px solid var(--border)">
+        <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple)">◆ Fascia Cinematografica · 8K / 11K</span>
+      </div>
+
+      <div class="vid-row highlight">
+        <div>
+          <div class="vr-name">Video 180° VR · Cinematografico 8K</div>
+          <div class="vr-sub">Risoluzione 8K · Audio spaziale binaural · Grading colore professionale<br/>Ideale: istituzionale, reclutamento premium, eventi</div>
+        </div>
+        <div>
+          <div class="vr-price">€3.000<small>a minuto</small></div>
+        </div>
+        <div>
+          <span class="vr-badge badge-cinema">Cinematografico 8K</span>
+        </div>
+        <div>
+          <div class="vr-total">da €9.000<small>per 3 minuti</small></div>
+        </div>
+      </div>
+
+      <div class="vid-row highlight">
+        <div>
+          <div class="vr-name">Video 360° Sferico · Cinematografico 11K</div>
+          <div class="vr-sub">Risoluzione 11K · Qualità massima · Voiceover + colonna sonora<br/>Ideale: showreel istituzionale, fiere internazionali, Apple Vision Pro</div>
+        </div>
+        <div>
+          <div class="vr-price">€3.000<small>a minuto</small></div>
+        </div>
+        <div>
+          <span class="vr-badge badge-cinema">Cinematografico 11K</span>
+        </div>
+        <div>
+          <div class="vr-total">da €15.000<small>per 5 minuti</small></div>
+        </div>
+      </div>
+
+      <!-- EVENT -->
+      <div style="padding:10px 28px 4px;background:rgba(26,122,110,0.04);border-top:1px solid var(--border)">
+        <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal)">◆ Servizio Evento</span>
+      </div>
+
+      <div class="vid-row">
+        <div>
+          <div class="vr-name">Event Coverage 360° · Open Day / Inaugurazioni</div>
+          <div class="vr-sub">Riprese live in 360° · Montaggio highlights · Consegna entro 72 ore<br/>Ottimizzato per tutti i canali social e archivio istituzionale</div>
+        </div>
+        <div>
+          <div class="vr-price" style="color:var(--teal)">su richiesta<small>da €1.500</small></div>
+        </div>
+        <div>
+          <span class="vr-badge" style="background:rgba(26,122,110,0.1);color:var(--teal)">Per evento</span>
+        </div>
+        <div>
+          <div class="vr-total" style="color:var(--teal)">da €1.500<small>per evento</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      💡 <strong>Come si calcola il preventivo:</strong> Il prezzo si moltiplica per i minuti di video finito richiesti. Esempio: un Campus Showreel da 4 minuti in tecnologia 5.7K = 4 × €1.000 = <strong>€4.000</strong>. Un video istituzionale da 3 minuti in 8K cinematografico = 3 × €3.000 = <strong>€9.000</strong>. Incluso nel prezzo: regia, riprese, post-produzione, color grading, sottotitoli (IT + EN standard) e distribuzione digitale. Lingue aggiuntive e voiceover su preventivo separato.
+    </div>
+  </div>
+  <div class="sfoot">
+    <div class="fbrand">tourvirtuale<span>.digital</span></div>
+    <div class="finfo">Proposta Servizi · Università · 2025</div>
+  </div>
+</div>
+
+<!-- ══ S5 PACCHETTO COMPLETO ══ -->
+<div class="slide" id="s5" style="background:var(--off)">
+  <div class="inner">
+    <div class="sec-label">Pacchetto Consigliato</div>
+    <h2 class="sec-title">Tour + Video: la soluzione <span class="o">completa</span></h2>
+    <p class="sec-sub">Il pacchetto più scelto dagli atenei che vogliono una presenza digitale completa — tour navigabile + showreel video + analytics in un'unica soluzione.</p>
+
+    <div style="background:linear-gradient(135deg,var(--nd),var(--navy));border-radius:16px;padding:36px 40px;margin-bottom:24px;position:relative;overflow:hidden">
+      <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(91,79,207,.2) 0%,transparent 65%);top:-150px;right:-80px"></div>
+      <div style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;background:linear-gradient(90deg,var(--orange),var(--purple));color:white;margin-bottom:14px">⭐ Pacchetto Completo — Più Scelto</div>
+      <h3 style="font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;color:white;margin-bottom:8px">Campus Pro + Showreel Technology + Analytics</h3>
+      <p style="font-size:14px;color:rgba(255,255,255,.5);margin-bottom:28px">Tour 360° navigabile (20 ambienti) + Video showreel 5 min in Technology 5.7K + Report analytics 12 mesi.</p>
+
+      <div class="grid-3" style="gap:16px;margin-bottom:24px;position:relative;z-index:1">
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px">
+          <div style="font-size:22px;margin-bottom:8px">🔵</div>
+          <h4 style="font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:white;margin-bottom:6px">Campus Pro</h4>
+          <p style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.7">Tour 360° 20 ambienti, hotspot avanzati, mappa interattiva, SEO, branding ateneo.</p>
+          <div style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:rgba(255,255,255,.4);margin-top:10px;text-decoration:line-through">€2.390</div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px">
+          <div style="font-size:22px;margin-bottom:8px">🎬</div>
+          <h4 style="font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:white;margin-bottom:6px">Showreel 5 min · 5.7K</h4>
+          <p style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.7">Video 360° 5 minuti in Technology 5.7K, voiceover, sottotitoli IT+EN, versioni social.</p>
+          <div style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:rgba(255,255,255,.4);margin-top:10px;text-decoration:line-through">€5.000</div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px">
+          <div style="font-size:22px;margin-bottom:8px">📊</div>
+          <h4 style="font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:white;margin-bottom:6px">Analytics 12 mesi</h4>
+          <p style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.7">Report visite, paesi di provenienza, ambienti più visitati, heatmap interazione.</p>
+          <div style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:rgba(255,255,255,.4);margin-top:10px;text-decoration:line-through">€490</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative;z-index:1">
+        <div>
+          <div style="font-size:12px;color:rgba(255,255,255,.3);text-decoration:line-through;margin-bottom:6px">Valore separato: €7.880</div>
+          <div style="font-family:'Nunito',sans-serif;font-size:52px;font-weight:900;color:var(--orange);line-height:1">€6.490<small style="font-size:15px;font-weight:400;color:rgba(255,255,255,.4);font-family:'Nunito Sans',sans-serif"> una tantum</small></div>
+        </div>
+        <div style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.8;max-width:280px">
+          Risparmio di <strong style="color:var(--ol);font-size:16px">€1.390</strong> rispetto ai servizi acquistati separatamente.<br/>
+          <span style="font-size:12px;color:rgba(255,255,255,.4)">Disponibile anche con Showreel 8K cinematografico su preventivo.</span>
+        </div>
+        <div style="background:linear-gradient(135deg,var(--orange),var(--ol));border-radius:12px;padding:18px 28px;text-align:center;flex-shrink:0">
+          <div style="font-size:10px;font-weight:700;color:white;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Risparmio</div>
+          <div style="font-family:'Nunito',sans-serif;font-size:36px;font-weight:900;color:white;line-height:1">−18%</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.75)">sul prezzo di listino</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPLICAZIONI -->
+    <div>
+      <div style="font-family:'Nunito',sans-serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px">Dove usiamo i video immersivi nel campus</div>
+      <div class="grid-3" style="gap:14px">
+        <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;gap:12px;align-items:flex-start"><span style="font-size:26px;flex-shrink:0">🏛️</span><div><div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--navy);margin-bottom:4px">Campus e aule</div><p style="font-size:12.5px;color:var(--muted);line-height:1.7">Tour del campus, aule magistrali, spazi studio, sale computer.</p></div></div>
+        <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;gap:12px;align-items:flex-start"><span style="font-size:26px;flex-shrink:0">🔬</span><div><div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--navy);margin-bottom:4px">Laboratori</div><p style="font-size:12.5px;color:var(--muted);line-height:1.7">Laboratori scientifici, ingegneria, medicina — argomento decisivo.</p></div></div>
+        <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;gap:12px;align-items:flex-start"><span style="font-size:26px;flex-shrink:0">🎭</span><div><div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--navy);margin-bottom:4px">Open Day &amp; eventi</div><p style="font-size:12.5px;color:var(--muted);line-height:1.7">Riprese live disponibili tutto l'anno come strumento di recruiting.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sfoot">
+    <div class="fbrand">tourvirtuale<span>.digital</span></div>
+    <div class="finfo">Proposta Servizi · Università · 2025</div>
+  </div>
+</div>
+
+<!-- ══ S6 TECNOLOGIA ══ -->
+<div class="slide" id="s6" style="background:var(--white)">
+  <div class="inner">
+    <div class="sec-label">La Tecnologia</div>
+    <h2 class="sec-title">Attrezzatura <span class="o">professionale</span>,<br/>risultati <span style="color:var(--purple)">cinema</span></h2>
+    <p class="sec-sub">Utilizziamo esclusivamente attrezzatura di livello professionale. Niente smartphone, niente soluzioni consumer.</p>
+
+    <div class="grid-2" style="gap:18px;margin-bottom:24px">
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:28px">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:52px;height:52px;border-radius:12px;background:rgba(245,130,13,.1);display:flex;align-items:center;justify-content:center;font-size:24px">📷</div><h3 style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy)">Fotocamere 360° per Tour</h3></div>
+        <p style="font-size:13.5px;color:var(--muted);line-height:1.8">Sensori ad alta risoluzione con HDR processing, stitching automatico e color grading professionale. Tour nitidi su qualsiasi dispositivo, da smartphone a visore VR.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px">
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(245,130,13,0.08);color:var(--od)">8K+</span>
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(245,130,13,0.08);color:var(--od)">HDR</span>
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(245,130,13,0.08);color:var(--od)">Auto Stitching</span>
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(245,130,13,0.08);color:var(--od)">Treppiede Pro</span>
+        </div>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:28px">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:52px;height:52px;border-radius:12px;background:rgba(91,79,207,.1);display:flex;align-items:center;justify-content:center;font-size:24px">🎬</div><h3 style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy)">Videocamere 360°/180° VR</h3></div>
+        <p style="font-size:13.5px;color:var(--muted);line-height:1.8">360° sferico completo fino a 11K o 180° stereoscopico VR. Compatibile Meta Quest, PSVR, Apple Vision Pro. Audio spaziale ambisonic binaural 4ch incluso.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px">
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(91,79,207,0.08);color:var(--purple)">fino a 11K</span>
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(91,79,207,0.08);color:var(--purple)">360° + 180° VR</span>
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(91,79,207,0.08);color:var(--purple)">Spatial Audio</span>
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(91,79,207,0.08);color:var(--purple)">Binaural 4ch</span>
+        </div>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:28px">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:52px;height:52px;border-radius:12px;background:rgba(26,122,110,.1);display:flex;align-items:center;justify-content:center;font-size:24px">🔬</div><h3 style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy)">Scanner LiDAR Matterport Pro3</h3></div>
+        <p style="font-size:13.5px;color:var(--muted);line-height:1.8">Scansione laser per Digital Twin di precisione. Modelli 3D navigabili, misurazioni precise degli ambienti e planimetrie digitali esportabili. Ideale per campus multi-edificio.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px">
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(26,122,110,0.08);color:var(--teal)">Laser LiDAR</span>
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(26,122,110,0.08);color:var(--teal)">Modello 3D</span>
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(26,122,128,0.08);color:var(--teal)">Planimetrie</span>
+        </div>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:28px">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:52px;height:52px;border-radius:12px;background:rgba(58,143,204,.1);display:flex;align-items:center;justify-content:center;font-size:24px">🌐</div><h3 style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy)">Distribuzione Multi-piattaforma</h3></div>
+        <p style="font-size:13.5px;color:var(--muted);line-height:1.8">Google Maps · Google Arts &amp; Culture · YouTube 360° · Facebook 360° · Sito istituzionale · Visori VR · Apple Vision Pro · Presentazioni PowerPoint.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px">
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(58,143,204,0.08);color:var(--blue)">Google Maps</span>
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(58,143,204,0.08);color:var(--blue)">YouTube 360°</span>
+          <span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(58,143,204,0.08);color:var(--blue)">VR Ready</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESSO -->
+    <div style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--navy);margin-bottom:8px">Il processo — dalla ripresa alla pubblicazione</div>
+    <div class="steps" style="margin-top:28px">
+      <div class="step"><div class="step-n s-o">1</div><h4>Sopralluogo</h4><p>Pianifichiamo le riprese con il referente dell'ateneo</p></div>
+      <div class="step"><div class="step-n s-n">2</div><h4>Riprese</h4><p>Sessione foto e video professionale multi-location</p></div>
+      <div class="step"><div class="step-n s-o">3</div><h4>Post-prod.</h4><p>Stitching, color grading, audio mix, branding</p></div>
+      <div class="step"><div class="step-n s-n">4</div><h4>Online!</h4><p>Pubblicazione su tutte le piattaforme in 7 giorni</p></div>
+    </div>
+  </div>
+  <div class="sfoot">
+    <div class="fbrand">tourvirtuale<span>.digital</span></div>
+    <div class="finfo">Proposta Servizi · Università · 2025</div>
+  </div>
+</div>
+
+<!-- ══ S7 TERMINI ══ -->
+<div class="slide" id="s7" style="background:var(--off)">
+  <div class="inner">
+    <div class="sec-label">Termini e Accordo</div>
+    <h2 class="sec-title">Condizioni di <span class="o">fornitura</span></h2>
+    <p class="sec-sub">Proposta commerciale valida per l'anno accademico 2025/2026.</p>
+
+    <div class="validity">
+      <div class="vt">⏱️ Validità della proposta:</div>
+      <div class="vd">Anno Accademico 2025 / 2026</div>
+      <div class="vt">Rinnovabile per accordo scritto</div>
+    </div>
+
+    <div class="terms-grid">
+      <div class="terms-box">
+        <h3>📌 Condizioni generali</h3>
+        <ul class="terms-ul">
+          <li>Il pagamento avviene al 50% all'ordine e 50% alla consegna finale approvata</li>
+          <li>Il prezzo per i video è calcolato per minuto di video finito, IVA esclusa</li>
+          <li>Revisioni aggiuntive oltre quelle incluse: €80/ora di lavoro</li>
+          <li>I diritti sui contenuti sono ceduti integralmente all'ateneo a saldo avvenuto</li>
+          <li>Non utilizziamo i contenuti per uso commerciale proprio senza consenso scritto</li>
+          <li>NDA disponibile su richiesta prima dell'inizio dei lavori</li>
+          <li>Compatibile con procedure di acquisto PA e MePA</li>
+        </ul>
+      </div>
+      <div class="terms-box">
+        <h3>🔒 Privacy e GDPR</h3>
+        <ul class="terms-ul">
+          <li>Dati trattati in conformità al GDPR (Reg. UE 2016/679)</li>
+          <li>tourvirtuale.digital agisce come responsabile del trattamento ex art. 28 GDPR</li>
+          <li>Report analytics anonimi e aggregati — nessun dato personale raccolto</li>
+          <li>File sorgente rimossi dai server entro 30 giorni dalla consegna finale</li>
+          <li>DPA (Data Processing Agreement) disponibile su richiesta</li>
+          <li>Conformità con il Codice dei Contratti Pubblici per enti universitari</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="firma-block">
+      <div class="fp">
+        <h4>tourvirtuale.digital</h4>
+        <div class="fr">Fornitore del Servizio</div>
+        <div class="fl"></div>
+        <div class="flab">Firma e Timbro</div>
+        <div class="fd">commerciale@tourvirtuale.digital<br/>tourvirtuale.digital</div>
+      </div>
+      <div class="fsep"></div>
+      <div class="fdate">
+        <div class="fdl">Data della proposta</div>
+        <div class="fdv">___ / ___ / 2025</div>
+        <div style="margin-top:14px;font-size:11px;color:rgba(255,255,255,.2)">Luogo: _______________</div>
+      </div>
+      <div class="fsep"></div>
+      <div class="fp" style="text-align:right">
+        <h4>[Nome Ateneo]</h4>
+        <div class="fr">Ente Committente</div>
+        <div class="fl"></div>
+        <div class="flab">Firma del Rappresentante Legale</div>
+        <div class="fd">Nome e Cognome: _______________<br/>Ruolo: _______________</div>
+      </div>
+    </div>
+  </div>
+  <div class="sfoot">
+    <div class="fbrand">tourvirtuale<span>.digital</span></div>
+    <div class="finfo">Proposta Servizi · Università · 2025</div>
+  </div>
+</div>
+
+<!-- ══ S8 CTA ══ -->
+<div class="slide" id="s8">
+  <div class="cta-inner">
+    <h2 class="cta-title">Il campus che il mondo<br/>vuole esplorare.</h2>
+    <p class="cta-sub">Siamo a disposizione per un incontro, una demo gratuita o un sopralluogo senza impegno. Portiamo l'attrezzatura e mostriamo dal vivo la qualità del risultato.</p>
+
+    <div class="cta-box">
+      <div class="cta-box-title">📞 Contatti diretti</div>
+      <div class="cta-row"><div class="cta-ico">📧</div><div><div class="cta-rl">Email</div><div class="cta-rv">commerciale@tourvirtuale.digital</div></div></div>
+      <div class="cta-row"><div class="cta-ico">🌐</div><div><div class="cta-rl">Sito web</div><div class="cta-rv">tourvirtuale.digital</div></div></div>
+      <div class="cta-row"><div class="cta-ico">📍</div><div><div class="cta-rl">Operatività</div><div class="cta-rv">Sardegna e tutta Italia · Trasferta su preventivo</div></div></div>
+      <div class="cta-row"><div class="cta-ico">🎬</div><div><div class="cta-rl">Per richiedere la proposta personalizzata</div><div class="cta-rv">Oggetto: "Proposta Università [Nome Ateneo]"</div></div></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
