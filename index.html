@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="Tour virtuali 360° professionali per hotel, B&B, negozi, università e aziende in Sardegna. Digital Twin LiDAR. Visibili su Google Maps, Booking.com e ovunque.">
+<meta name="theme-color" content="#1E3557">
+<title>tourvirtuale.digital — Tour Virtuali 360° Sardegna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#F5820D;--ol:#FF9A2E;--od:#D96A00;
+  --navy:#2A5280;--nl:#3A6B9E;--nd:#1A3550;
+  --blue:#4A9ED6;--teal:#1A7A6E;--tl:#25A898;
+  --white:#fff;--off:#F4F7FB;--cream:#F5F0E8;
+  --muted:#5A6A82;--border:#C8D8EC;--ink:#162030;
+  --purple:#5B4FCF;--pl:#7B6FE8;
+  --card:#FFFFFF;--section-alt:#EEF4FB;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Nunito Sans',sans-serif;background:var(--off);color:var(--ink);overflow-x:hidden;font-size:16px;line-height:1.6}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,53,80,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.1);padding:0 4%}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:60px;gap:8px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;flex-shrink:0}
+.logo-img{height:36px;width:auto;object-fit:contain}
+.logo-fallback{display:flex;align-items:center;gap:8px}
+.nav-logo-text{font-family:'Nunito',sans-serif;font-weight:800;font-size:17px;color:white;line-height:1;white-space:nowrap}
+.nav-logo-text span{color:var(--orange)}
+.nav-menu{display:flex;align-items:center;gap:2px;flex-wrap:nowrap}
+.nav-link{font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);padding:8px 11px;border-radius:6px;cursor:pointer;transition:all .2s;text-decoration:none;border:none;background:none;white-space:nowrap}
+.nav-link:hover,.nav-link.active{color:white;background:rgba(255,255,255,0.1)}
+.nav-cta{background:linear-gradient(135deg,var(--orange),var(--ol))!important;color:white!important;padding:9px 16px!important;border-radius:8px;font-weight:700!important;box-shadow:0 2px 10px rgba(245,130,13,0.35)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px;border:none;background:none;-webkit-tap-highlight-color:transparent}
+.hamburger span{width:22px;height:2px;background:white;border-radius:2px;transition:all .3s;display:block}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:var(--nd);padding:16px 4% 24px;border-bottom:1px solid rgba(255,255,255,0.08);z-index:998;overflow-y:auto;max-height:calc(100vh - 60px)}
+.mobile-menu.open{display:flex;flex-direction:column;gap:4px}
+.mobile-menu .nav-link{color:rgba(255,255,255,0.8);padding:14px 16px;border-radius:10px;font-size:15px;display:flex;align-items:center;gap:10px;-webkit-tap-highlight-color:transparent}
+.mobile-menu .nav-link:active{background:rgba(255,255,255,0.1)}
+.mobile-menu .nav-cta{background:linear-gradient(135deg,var(--orange),var(--ol))!important;color:white!important;margin-top:8px;justify-content:center;font-size:16px!important;padding:16px!important;border-radius:12px}
+
+/* ── SECTIONS ── */
+.page-section{display:none;padding-top:60px;min-height:100vh}
+.page-section.active{display:block}
+
+/* ── SHARED ── */
+.inner{padding:64px 6%}
+.inner-sm{padding:48px 6%}
+@media(min-width:1200px){.inner{padding:80px 10%}.inner-sm{padding:56px 10%}}
+
+.sec-label{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+.sec-label::before{content:'';width:18px;height:2px;background:var(--orange);display:block;flex-shrink:0}
+.sec-label.inv{color:rgba(255,255,255,0.6)}
+.sec-label.inv::before{background:var(--orange)}
+.sec-title{font-family:'Nunito',sans-serif;font-size:clamp(24px,4vw,46px);font-weight:900;line-height:1.15;color:var(--ink);margin-bottom:12px}
+.sec-title .o{color:var(--orange)}
+.sec-title .b{color:var(--navy)}
+.sec-title .p{color:var(--purple)}
+.sec-title.inv{color:white}
+.sec-sub{font-size:15px;color:var(--muted);max-width:620px;line-height:1.85;margin-bottom:40px}
+.sec-sub.inv{color:rgba(255,255,255,0.65)}
+.tc{text-align:center}
+.tc .sec-label{justify-content:center}
+.tc .sec-label::before{display:none}
+.tc .sec-sub{margin:12px auto 40px}
+
+/* GRIDS */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;box-shadow:0 2px 12px rgba(42,82,128,0.06)}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(42,82,128,0.12)}
+.card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--blue))}
+.card.dark{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1)}
+.card.dark:hover{background:rgba(255,255,255,0.08);border-color:rgba(245,130,13,0.4)}
+.card-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;background:linear-gradient(135deg,rgba(245,130,13,.1),rgba(74,158,214,.08))}
+.card h3{font-family:'Nunito',sans-serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.card.dark h3{color:white}
+.card p{font-size:14px;color:var(--muted);line-height:1.8}
+.card.dark p{color:rgba(255,255,255,0.55)}
+
+/* BTN */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:15px;padding:14px 28px;border-radius:10px;text-decoration:none;cursor:pointer;border:none;transition:all .2s;letter-spacing:.2px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--ol));color:white;box-shadow:0 4px 16px rgba(245,130,13,0.3)}
+.btn-primary:hover{box-shadow:0 8px 24px rgba(245,130,13,0.4);transform:translateY(-1px)}
+.btn-primary:active{transform:translateY(0)}
+.btn-outline{border:2px solid var(--border);color:var(--navy);background:white}
+.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+.btn-ghost{border:1.5px solid rgba(255,255,255,0.35);color:white;background:transparent}
+.btn-ghost:hover{border-color:white;background:rgba(255,255,255,0.1)}
+.btn-white{background:white;color:var(--od);font-weight:800}
+.btn-white:hover{box-shadow:0 8px 24px rgba(0,0,0,0.15)}
+.btn-full{width:100%}
+
+/* PIANO */
+.piano{background:white;border:1px solid var(--border);border-radius:18px;padding:32px 26px;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;box-shadow:0 2px 12px rgba(42,82,128,0.06)}
+.piano:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(42,82,128,0.12)}
+.piano::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--orange),var(--blue))}
+.piano.feat{background:linear-gradient(160deg,var(--nd),var(--navy));border-color:transparent;box-shadow:0 20px 56px rgba(26,53,80,0.35);transform:scale(1.02)}
+.piano.feat:hover{transform:scale(1.02) translateY(-4px)}
+.piano-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;background:linear-gradient(90deg,var(--orange),var(--ol));color:white;margin-bottom:14px}
+.piano-target{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}
+.piano.feat .piano-target{color:rgba(255,255,255,.45)}
+.piano h3{font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:var(--navy);margin-bottom:14px}
+.piano.feat h3{color:white}
+.piano-price{font-family:'Nunito',sans-serif;font-size:46px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:18px}
+.piano-price small{font-size:13px;font-weight:400;color:var(--muted);font-family:'Nunito Sans',sans-serif}
+.piano.feat .piano-price small{color:rgba(255,255,255,.35)}
+.piano ul{list-style:none}
+.piano ul li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--ink)}
+.piano.feat ul li{border-bottom-color:rgba(255,255,255,.1);color:rgba(255,255,255,.8)}
+.piano ul li:last-child{border-bottom:none}
+.piano ul li::before{content:'✓';color:var(--orange);font-weight:900;flex-shrink:0}
+
+/* STAT STRIP */
+.stat-strip{display:flex;background:rgba(0,0,0,0.22);border-top:1px solid rgba(255,255,255,0.07)}
+.stat{flex:1;padding:20px 8px;text-align:center;border-right:1px solid rgba(255,255,255,0.07)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Nunito',sans-serif;font-size:clamp(20px,3vw,30px);font-weight:900;color:var(--orange);line-height:1}
+.stat-l{font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;letter-spacing:1px;text-transform:uppercase}
+
+/* STEPS */
+.steps-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;position:relative}
+.steps-wrap::before{content:'';position:absolute;top:33px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--orange),var(--blue))}
+.step{text-align:center;padding:0 8px}
+.step-n{width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:white;margin:0 auto 16px;position:relative;z-index:1;border:4px solid var(--off);box-shadow:0 4px 16px rgba(42,82,128,0.2)}
+.step-n.s-o{background:linear-gradient(135deg,var(--orange),var(--ol));box-shadow:0 4px 20px rgba(245,130,13,.3)}
+.step-n.s-n{background:linear-gradient(135deg,var(--navy),var(--nl))}
+.step h4{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.step p{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* PHOTO UPLOAD ZONES */
+.photo-zone{border:2px dashed var(--border);border-radius:16px;padding:32px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--section-alt);position:relative;overflow:hidden}
+.photo-zone:hover{border-color:var(--orange);background:rgba(245,130,13,0.04)}
+.photo-zone.dragover{border-color:var(--orange);background:rgba(245,130,13,0.08);transform:scale(1.01)}
+.photo-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.photo-zone-icon{font-size:36px;margin-bottom:10px;display:block}
+.photo-zone h4{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.photo-zone p{font-size:13px;color:var(--muted)}
+.photo-zone .pz-badge{display:inline-block;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;background:rgba(245,130,13,0.1);color:var(--od);margin-top:8px}
+.photo-preview{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;justify-content:center}
+.photo-thumb{width:80px;height:80px;border-radius:10px;object-fit:cover;border:2px solid var(--border);transition:transform .2s}
+.photo-thumb:hover{transform:scale(1.05)}
+.photo-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.gallery-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:2px solid var(--border);display:block}
+.gallery-placeholder{background:var(--section-alt);border:2px dashed var(--border);border-radius:10px;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:24px;color:var(--muted);cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.gallery-placeholder input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.gallery-placeholder:hover{border-color:var(--orange);color:var(--orange)}
+.gallery-placeholder span{font-size:12px;margin-top:6px;font-weight:600}
+
+/* SECTOR TABS */
+.sector-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.snav-btn{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:30px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);color:var(--muted);background:white;transition:all .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.snav-btn:hover{border-color:var(--orange);color:var(--orange)}
+.snav-btn.active{background:linear-gradient(135deg,var(--orange),var(--ol));color:white;border-color:transparent;box-shadow:0 4px 14px rgba(245,130,13,0.3)}
+.sector-content{display:none}
+.sector-content.active{display:block}
+
+/* SEG TABS */
+.seg-tabs{display:flex;gap:0;background:var(--nd);border-radius:12px;overflow:hidden;margin-bottom:28px;border:1px solid rgba(255,255,255,0.07)}
+.seg-tab{flex:1;padding:13px 8px;text-align:center;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;color:rgba(255,255,255,0.35);cursor:pointer;transition:all .2s;border:none;background:none;-webkit-tap-highlight-color:transparent}
+.seg-tab:hover{color:rgba(255,255,255,0.65)}
+.seg-tab.active{background:linear-gradient(135deg,var(--orange),var(--ol));color:white}
+.seg-panel{display:none}
+.seg-panel.active{display:block}
+
+/* QUOTE */
+.quote-box{background:linear-gradient(135deg,var(--nd),var(--navy));border-radius:14px;padding:28px 32px;border-left:4px solid var(--orange);font-size:16px;font-style:italic;font-weight:300;color:rgba(255,255,255,.85);line-height:1.8;margin-top:24px}
+.quote-box strong{color:var(--ol);font-style:normal;font-weight:800}
+
+/* DARK / LIGHT BG */
+.dark-bg{background:linear-gradient(160deg,var(--nd),var(--navy))}
+.light-bg{background:var(--section-alt)}
+.hero-bg{background:linear-gradient(145deg,var(--nd) 0%,var(--navy) 55%,var(--nl) 100%)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(245,130,13,0.13) 0%,transparent 65%);top:-180px;right:-120px}
+.hero::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(74,158,214,0.12) 0%,transparent 65%);bottom:-80px;left:-60px}
+.hero-inner{flex:1;display:flex;flex-direction:column;justify-content:center;padding:100px 6% 56px;position:relative;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(245,130,13,0.18);border:1px solid rgba(245,130,13,0.35);color:var(--ol);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:7px 16px;border-radius:4px;width:fit-content;margin-bottom:24px}
+.hero-title{font-family:'Nunito',sans-serif;font-size:clamp(36px,6vw,78px);font-weight:900;line-height:1.02;color:white;margin-bottom:18px}
+.hero-title .o{color:var(--orange)}
+.hero-title .b{color:#7CC5F0}
+.hero-sub{font-size:clamp(15px,2vw,18px);color:rgba(255,255,255,0.6);max-width:520px;line-height:1.8;margin-bottom:36px;font-weight:300}
+.hero-sub strong{color:var(--ol);font-weight:800;font-style:normal}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap}
+.hero-pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:30px;padding:7px 14px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.65)}
+.hero-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0}
+
+/* VIDEO SERVICE INFO */
+.video-service-box{background:white;border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;overflow:hidden;margin-bottom:20px}
+.video-service-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--purple),var(--tl))}
+.vsb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}
+.vsb-item{background:var(--section-alt);border-radius:12px;padding:20px;border:1px solid var(--border)}
+.vsb-item h4{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.vsb-item p{font-size:13px;color:var(--muted);line-height:1.75}
+
+/* FORM */
+.contact-form{background:white;border:1px solid var(--border);border-radius:16px;padding:32px;box-shadow:0 4px 20px rgba(42,82,128,0.08)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg.full{grid-column:1/-1}
+.fg label{font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.5px;text-transform:uppercase}
+.fg input,.fg textarea,.fg select{font-family:'Nunito Sans',sans-serif;font-size:15px;padding:13px 15px;border:1.5px solid var(--border);border-radius:9px;color:var(--ink);background:var(--off);transition:border-color .2s;outline:none;-webkit-appearance:none;appearance:none;width:100%}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--orange);background:white}
+.fg textarea{resize:vertical;min-height:90px}
+.form-success{display:none;background:linear-gradient(135deg,var(--teal),var(--tl));color:white;border-radius:10px;padding:16px 20px;font-weight:700;font-size:14px;margin-top:12px;text-align:center}
+
+/* FOOTER */
+footer{background:var(--nd);padding:48px 6% 28px;border-top:1px solid rgba(255,255,255,0.08)}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.foot-logo-text{font-family:'Nunito',sans-serif;font-weight:800;font-size:18px;color:white;line-height:1}
+.foot-logo-text span{color:var(--orange)}
+.foot-brand p{font-size:13px;color:rgba(255,255,255,0.4);margin-top:10px;line-height:1.8;max-width:260px}
+.foot-col h4{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:14px}
+.foot-col a{display:block;font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;margin-bottom:8px;transition:color .2s;cursor:pointer}
+.foot-col a:hover{color:var(--ol)}
+.foot-bottom{border-top:1px solid rgba(255,255,255,0.07);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,0.22)}
+.foot-payoff{font-size:13px;font-style:italic;color:rgba(255,255,255,0.3)}
+.foot-payoff strong{color:var(--ol);font-style:normal}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .nav-menu{display:none}
+  .hamburger{display:flex}
+  .grid-3,.grid-4{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .steps-wrap{grid-template-columns:1fr 1fr;gap:20px}
+  .steps-wrap::before{display:none}
+  .vsb-grid{grid-template-columns:1fr}
+  .piano.feat{transform:none}
+}
+@media(max-width:600px){
+  .grid-2,.grid-3,.grid-4,.price-row,.form-row{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column}
+  .hero-btns .btn{width:100%;text-align:center}
+  .hero-title{font-size:36px}
+  .inner{padding:48px 5%}
+  .inner-sm{padding:36px 5%}
+  .piano.feat{transform:none}
+  .stat-strip{flex-wrap:wrap}
+  .stat{flex:1 1 50%;border-right:none;border-bottom:1px solid rgba(255,255,255,0.07);padding:16px 8px}
+  .photo-gallery{grid-template-columns:1fr 1fr}
+  .seg-tab{font-size:11px;padding:11px 6px}
+  .sector-nav{gap:6px}
+  .snav-btn{font-size:12px;padding:9px 13px}
+  .foot-grid{grid-template-columns:1fr}
+  .foot-bottom{flex-direction:column;text-align:center}
+}
+@media(max-width:380px){
+  .hero-title{font-size:30px}
+  .nav-logo-text{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">
+      <img class="logo-img" src="https://static.wixstatic.com/media/dcfe46_f18faf4ffa094f0595c9560d809cb9fe~mv2.png/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/image.png"
+        alt="tourvirtuale.digital logo"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="logo-fallback" style="display:none">
+        <svg width="32" height="38" viewBox="0 0 100 120" fill="none">
+          <defs><linearGradient id="pg0" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9A2E"/><stop offset="100%" stop-color="#F5820D"/></linearGradient></defs>
+          <path d="M50 4C30 4 14 20 14 40C14 62 50 116 50 116C50 116 86 62 86 40C86 20 70 4 50 4Z" fill="url(#pg0)"/>
+          <rect x="34" y="42" width="32" height="22" rx="2" fill="#4A9ED6"/>
+          <polygon points="32,42 50,26 68,42" fill="#3A8FCC"/>
+          <ellipse cx="52" cy="62" rx="38" ry="11" fill="none" stroke="#4A9ED6" stroke-width="2.5" stroke-dasharray="4 2"/>
+        </svg>
+        <div class="nav-logo-text">tourvirtuale<span>.digital</span></div>
+      </div>
+    </div>
+    <div class="nav-menu">
+      <a class="nav-link active" onclick="showPage('home')">Home</a>
+      <a class="nav-link" onclick="showPage('servizi')">Servizi</a>
+      <a class="nav-link" onclick="showPage('hotel')">Hotel &amp; B&amp;B</a>
+      <a class="nav-link" onclick="showPage('negozi')">Store &amp; Luxury</a>
+      <a class="nav-link" onclick="showPage('universita')">Università</a>
+      <a class="nav-link" onclick="showPage('tecnologia')">Tech</a>
+      <a class="nav-link nav-cta" onclick="showPage('contatti')">Preventivo</a>
+    </div>
+    <button class="hamburger" id="ham" onclick="toggleMobile()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a class="nav-link" onclick="showPage('home');closeMobile()">🏠 Home</a>
+  <a class="nav-link" onclick="showPage('servizi');closeMobile()">🔵 Servizi &amp; Prezzi</a>
+  <a class="nav-link" onclick="showPage('hotel');closeMobile()">🏨 Hotel &amp; B&amp;B</a>
+  <a class="nav-link" onclick="showPage('negozi');closeMobile()">💎 Store &amp; Luxury</a>
+  <a class="nav-link" onclick="showPage('universita');closeMobile()">🎓 Università</a>
+  <a class="nav-link" onclick="showPage('tecnologia');closeMobile()">⚙️ Tecnologia</a>
+  <a class="nav-link nav-cta" onclick="showPage('contatti');closeMobile()">📞 Richiedi Preventivo Gratuito</a>
+</div>
+
+<!-- ══════════ HOME ══════════ -->
+<div class="page-section active" id="page-home">
+  <div class="hero hero-bg">
+    <div class="hero-inner">
+      <div class="hero-tag">🌐 Tour Virtuali 360° · Digital Twin · Sardegna</div>
+      <h1 class="hero-title">
+        Porta i tuoi spazi<br/>
+        nel mondo <span class="o">digitale</span>.<br/>
+        <span class="b">Per sempre.</span>
+      </h1>
+      <p class="hero-sub">
+        <strong>"Entra. Esplora. Scegli."</strong><br/>
+        Tour virtuali 360°, video immersivi e Digital Twin LiDAR per hotel, negozi, università e aziende. Visibili ovunque, su qualsiasi dispositivo.
+      </p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="showPage('contatti')">🎬 Demo Gratuita</button>
+        <button class="btn btn-ghost" onclick="showPage('servizi')">Vedi i servizi →</button>
+      </div>
+      <div class="hero-pills">
+        <div class="hero-pill"><div class="dot"></div>Hotel &amp; B&amp;B</div>
+        <div class="hero-pill"><div class="dot"></div>Luxury Store</div>
+        <div class="hero-pill"><div class="dot"></div>Università</div>
+        <div class="hero-pill"><div class="dot"></div>Nautica</div>
+        <div class="hero-pill"><div class="dot"></div>Industria</div>
+      </div>
+    </div>
+    <div class="stat-strip">
+      <div class="stat"><div class="stat-n">+340%</div><div class="stat-l">Tempo sul sito</div></div>
+      <div class="stat"><div class="stat-n">+29%</div><div class="stat-l">Click Google</div></div>
+      <div class="stat"><div class="stat-n">+23%</div><div class="stat-l">Prenotazioni</div></div>
+      <div class="stat"><div class="stat-n">7gg</div><div class="stat-l">Consegna</div></div>
+    </div>
+  </div>
+
+  <!-- GALLERY UPLOAD HOME -->
+  <div class="inner-sm light-bg">
+    <div class="tc">
+      <div class="sec-label">Portfolio</div>
+      <h2 class="sec-title">I nostri <span class="o">lavori</span></h2>
+      <p class="sec-sub">Scorri alcuni esempi dei tour virtuali che abbiamo realizzato per strutture in Sardegna.</p>
+    </div>
+    <div class="photo-gallery" id="gallery-home">
+      <div class="gallery-placeholder" onclick="triggerUpload('up-h1')">
+        <input type="file" id="up-h1" accept="image/*" onchange="addPhoto(this,'gallery-home')">
+        <span style="font-size:28px">🏨</span><span>Hotel &amp; Resort</span>
+      </div>
+      <div class="gallery-placeholder" onclick="triggerUpload('up-h2')">
+        <input type="file" id="up-h2" accept="image/*" onchange="addPhoto(this,'gallery-home')">
+        <span style="font-size:28px">💎</span><span>Store &amp; Luxury</span>
+      </div>
+      <div class="gallery-placeholder" onclick="triggerUpload('up-h3')">
+        <input type="file" id="up-h3" accept="image/*" onchange="addPhoto(this,'gallery-home')">
+        <span style="font-size:28px">🎓</span><span>Università</span>
+      </div>
+      <div class="gallery-placeholder" onclick="triggerUpload('up-h4')">
+        <input type="file" id="up-h4" accept="image/*" onchange="addPhoto(this,'gallery-home')">
+        <span style="font-size:28px">⛵</span><span>Nautica</span>
+      </div>
+      <div class="gallery-placeholder" onclick="triggerUpload('up-h5')">
+        <input type="file" id="up-h5" accept="image/*" onchange="addPhoto(this,'gallery-home')">
+        <span style="font-size:28px">🍷</span><span>Cantine</span>
+      </div>
+      <div class="gallery-placeholder" onclick="triggerUpload('up-h6')">
+        <input type="file" id="up-h6" accept="image/*" onchange="addPhoto(this,'gallery-home')">
+        <span style="font-size:28px">🏛️</span><span>Musei</span>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:16px;font-size:12px;color:var(--muted)">Clicca su un riquadro per caricare una foto del portfolio</p>
+  </div>
+
+  <!-- SETTORI -->
+  <div class="inner">
+    <div class="tc">
+      <div class="sec-label">Settori</div>
+      <h2 class="sec-title">Per ogni settore,<br/>la soluzione <span class="o">giusta</span></h2>
+    </div>
+    <div class="grid-3" style="margin-top:36px">
+      <div class="card" style="cursor:pointer" onclick="showPage('hotel')">
+        <div class="card-icon">🏨</div>
+        <h3>Hotel &amp; B&amp;B</h3>
+        <p>Tour 360° distribuiti su Google Maps, Booking.com e Airbnb. Aumenta le prenotazioni dirette e riduci le cancellazioni.</p>
+        <div style="margin-top:14px;color:var(--orange);font-weight:700;font-size:13px">Scopri →</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('negozi')">
+        <div class="card-icon">💎</div>
+        <h3>Store, Luxury &amp; Cantine</h3>
+        <p>Boutique, gioiellerie, showroom, cantine vinicole. L'esperienza del brand inizia online prima che il cliente entri.</p>
+        <div style="margin-top:14px;color:var(--orange);font-weight:700;font-size:13px">Scopri →</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('universita')">
+        <div class="card-icon" style="background:rgba(91,79,207,.1)">🎓</div>
+        <h3>Università &amp; Campus</h3>
+        <p>Tour 360° e video immersivi 180°/360° per campus e facoltà. Studenti internazionali da tutto il mondo.</p>
+        <div style="margin-top:14px;color:var(--purple);font-weight:700;font-size:13px">Scopri →</div>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(74,158,214,.1)">⛵</div>
+        <h3>Nautica &amp; Yacht</h3>
+        <p>Tour immersivi di yacht e imbarcazioni per clienti in tutto il mondo. Hotspot tecnici su dotazioni e misure.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(26,122,110,.1)">🏠</div>
+        <h3>Immobiliare</h3>
+        <p>Visite virtuali 24/7. I clienti arrivano già convinti — meno visite fisiche, più conversioni e vendite più rapide.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(42,82,128,.08)">🏭</div>
+        <h3>Industria &amp; Aziende</h3>
+        <p>Digital Twin LiDAR per sedi aziendali, stabilimenti produttivi e showroom. Modelli 3D di precisione navigabili.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NUMERI -->
+  <div class="inner dark-bg">
+    <div class="tc">
+      <div class="sec-label inv">Risultati</div>
+      <h2 class="sec-title inv">Numeri che <span class="o">parlano</span></h2>
+    </div>
+    <div class="grid-4" style="margin-top:36px">
+      <div class="card dark"><div style="font-family:'Nunito',sans-serif;font-size:46px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:8px">+23%</div><h3>Prenotazioni</h3><p>Aumento medio delle prenotazioni dirette nei primi 3 mesi dall'attivazione.</p></div>
+      <div class="card dark"><div style="font-family:'Nunito',sans-serif;font-size:46px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:8px">+340%</div><h3>Tempo sul sito</h3><p>I visitatori con tour virtuale trascorrono il 340% di tempo in più — e convertono di più.</p></div>
+      <div class="card dark"><div style="font-family:'Nunito',sans-serif;font-size:46px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:8px">+29%</div><h3>Google Maps</h3><p>I profili con tour virtuale ricevono il 29% di clic in più. Più visibilità organica gratuita.</p></div>
+      <div class="card dark"><div style="font-family:'Nunito',sans-serif;font-size:46px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:8px">−40%</div><h3>Disdette</h3><p>Chi ha visto il tour sa cosa aspettarsi. Il tasso di cancellazione crolla drasticamente.</p></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div style="background:linear-gradient(135deg,var(--od),var(--orange),var(--ol));padding:72px 6%;text-align:center;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(255,255,255,.1) 0%,transparent 70%)"></div>
+    <div style="position:relative">
+      <h2 style="font-family:'Nunito',sans-serif;font-size:clamp(26px,4vw,52px);font-weight:900;color:white;line-height:1.1;margin-bottom:12px">Inizia con una demo gratuita</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,.8);max-width:460px;margin:0 auto 32px;line-height:1.8">Nessun impegno. Ti mostriamo come apparirà la tua struttura prima di decidere.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-white" onclick="showPage('contatti')">🎬 Richiedi Demo</button>
+        <button class="btn btn-ghost" onclick="showPage('servizi')">Vedi i prezzi →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SERVIZI ══════════ -->
+<div class="page-section" id="page-servizi">
+  <div class="inner dark-bg" style="min-height:38vh;display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="sec-label inv">Tutti i Servizi</div>
+    <h2 class="sec-title inv">Tour 360°, Video Immersivi<br/>&amp; <span class="o">Digital Twin</span></h2>
+    <p class="sec-sub inv">Dalla fotografia 360° alla scansione LiDAR. Una sola azienda per la digitalizzazione completa dei tuoi spazi.</p>
+  </div>
+
+  <!-- TOUR 360 PREZZI -->
+  <div class="inner">
+    <div class="sec-label">Tour 360° Navigabili · Prezzi</div>
+    <h2 class="sec-title">Scegli il piano <span class="o">giusto</span></h2>
+    <p class="sec-sub">Prezzi trasparenti, senza sorprese. Un investimento una tantum che rimane online per sempre.</p>
+    <div class="grid-3">
+      <div class="piano">
+        <div class="piano-badge">Starter</div>
+        <div class="piano-target">B&amp;B · Affittacamere · Piccoli store</div>
+        <h3>Essenziale</h3>
+        <div class="piano-price">€990<small> una tantum</small></div>
+        <ul>
+          <li>Tour 360° fino a 5 ambienti</li>
+          <li>Pubblicazione Google Business</li>
+          <li>Link embed sito web</li>
+          <li>1 revisione inclusa</li>
+          <li>Consegna 7 giorni lavorativi</li>
+        </ul>
+        <button class="btn btn-outline btn-full" onclick="showPage('contatti')" style="margin-top:20px">Richiedi preventivo →</button>
+      </div>
+      <div class="piano feat">
+        <div class="piano-badge">⭐ Più Scelto</div>
+        <div class="piano-target">Hotel 3–4★ · Resort · Store Premium</div>
+        <h3>Professionale</h3>
+        <div class="piano-price">€1.490<small> una tantum</small></div>
+        <ul>
+          <li>Tour 360° fino a 15 ambienti</li>
+          <li>Google Street View + Booking.com</li>
+          <li>Hotspot informativi interattivi</li>
+          <li>Logo e branding integrati</li>
+          <li>Ottimizzazione SEO locale</li>
+          <li>Report analytics 6 mesi</li>
+          <li>2 revisioni incluse</li>
+        </ul>
+        <button class="btn btn-primary btn-full" onclick="showPage('contatti')" style="margin-top:20px">Scegli questo →</button>
+      </div>
+      <div class="piano">
+        <div class="piano-badge">Premium</div>
+        <div class="piano-target">Resort 5★ · Luxury · Musei</div>
+        <h3>Luxury Experience</h3>
+        <div class="piano-price">€2.490<small> una tantum</small></div>
+        <ul>
+          <li>Tour 360° ambienti illimitati</li>
+          <li>Distribuzione multi-piattaforma</li>
+          <li>Video ambientale 60 sec incluso</li>
+          <li>Compatibile visori VR</li>
+          <li>Storytelling visivo custom</li>
+          <li>Report analytics 12 mesi</li>
+          <li>Supporto prioritario 1 anno</li>
+        </ul>
+        <button class="btn btn-outline btn-full" onclick="showPage('contatti')" style="margin-top:20px">Richiedi preventivo →</button>
+      </div>
+    </div>
+    <p style="margin-top:20px;font-size:13px;color:var(--muted)">💡 <strong style="color:var(--navy)">Manutenzione annuale:</strong> €199/anno per aggiornamenti stagionali, rinnovo immagini e nuovi ambienti a tariffa ridotta.</p>
+  </div>
+
+  <!-- VIDEO SERVIZIO (senza prezzi) -->
+  <div class="inner light-bg">
+    <div class="sec-label" style="color:var(--purple)"><span style="width:18px;height:2px;background:var(--purple);display:inline-block;margin-right:10px"></span>Video Immersivi 360°/180°</div>
+    <h2 class="sec-title">Video <span style="color:var(--purple)">cinematografici</span> in VR</h2>
+    <p class="sec-sub">Realizziamo video immersivi professionali in formato 360° sferico e 180° stereoscopico VR — per università, resort, eventi e presentazioni di brand. <strong style="color:var(--navy)">Contattaci per un preventivo personalizzato.</strong></p>
+
+    <div class="video-service-box">
+      <h3 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--navy);margin-bottom:6px">Cosa realizziamo</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:0">Dalla presentazione breve di 3 minuti al video showreel completo del campus, fino alle riprese live di eventi Open Day e cerimonie di inaugurazione.</p>
+      <div class="vsb-grid">
+        <div class="vsb-item">
+          <h4>🎬 Video 180° VR</h4>
+          <p>Formato stereoscopico compatibile con tutti i visori VR moderni (Meta Quest, Apple Vision Pro, PSVR). Ideale per presentazioni immersive di strutture.</p>
+        </div>
+        <div class="vsb-item">
+          <h4>🌐 Showreel 360°</h4>
+          <p>Video sferico completo fino a 6 minuti con voiceover, sottotitoli multilingua e versioni ottimizzate per YouTube 360°, social media e siti web.</p>
+        </div>
+        <div class="vsb-item">
+          <h4>📸 Event Coverage</h4>
+          <p>Riprese live in 360° di Open Day, inaugurazioni e cerimonie. Montaggio e consegna entro 72 ore dall'evento, pronti per tutti i canali.</p>
+        </div>
+      </div>
+      <div style="margin-top:20px;text-align:center">
+        <button class="btn btn-primary" onclick="showPage('contatti')">Richiedi preventivo video →</button>
+      </div>
+    </div>
+
+    <!-- VIDEO GALLERY UPLOAD -->
+    <div style="margin-top:28px">
+      <div style="font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:14px">📁 Carica esempi video / screenshot</div>
+      <div class="photo-zone" id="zone-video">
+        <input type="file" id="up-video" accept="image/*,video/*" multiple onchange="handleZoneUpload(this,'zone-video','prev-video')">
+        <span class="photo-zone-icon">🎬</span>
+        <h4>Trascina qui le immagini o clicca per caricare</h4>
+        <p>Formati supportati: JPG, PNG, WebP — Max 10MB per file</p>
+        <span class="pz-badge">Portfolio Video</span>
+      </div>
+      <div class="photo-preview" id="prev-video"></div>
+    </div>
+  </div>
+
+  <!-- DIGITAL TWIN -->
+  <div class="inner">
+    <div class="sec-label" style="color:var(--teal)"><span style="width:18px;height:2px;background:var(--teal);display:inline-block;margin-right:10px"></span>Scansione 3D LiDAR</div>
+    <h2 class="sec-title">Digital Twin <span style="color:var(--teal)">di precisione</span></h2>
+    <div class="grid-2" style="gap:40px;align-items:start">
+      <div>
+        <p style="font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:20px">Con tecnologia Matterport Pro3 creiamo modelli 3D digitali precisi degli ambienti. Ideale per strutture complesse, immobili di pregio e ambienti industriali.</p>
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:14px;padding:24px">
+          <ul style="list-style:none">
+            <li style="padding:9px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--ink);display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span>Tour virtuale estremamente realistico</li>
+            <li style="padding:9px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--ink);display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span>Modello 3D navigabile completo</li>
+            <li style="padding:9px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--ink);display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span>Misurazioni precise degli ambienti</li>
+            <li style="padding:9px 0;font-size:14px;color:var(--ink);display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span>Planimetrie digitali esportabili</li>
+          </ul>
+          <button class="btn btn-outline btn-full" onclick="showPage('contatti')" style="margin-top:18px;border-color:var(--teal);color:var(--teal)">Preventivo LiDAR →</button>
+        </div>
+      </div>
+      <div>
+        <div class="photo-zone" id="zone-lidar">
+          <input type="file" id="up-lidar" accept="image/*" multiple onchange="handleZoneUpload(this,'zone-lidar','prev-lidar')">
+          <span class="photo-zone-icon">🔬</span>
+          <h4>Carica esempi di scansioni LiDAR</h4>
+          <p>Screenshot, render 3D, planimetrie</p>
+          <span class="pz-badge">Portfolio LiDAR</span>
+        </div>
+        <div class="photo-preview" id="prev-lidar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESSO -->
+  <div class="inner light-bg">
+    <div class="tc">
+      <div class="sec-label">Come Funziona</div>
+      <h2 class="sec-title">Pronto in <span class="o">7 giorni</span>. Senza pensieri.</h2>
+      <p class="sec-sub">Ci occupiamo di tutto. Tu non devi fare nulla di tecnico — solo aprirci le porte.</p>
+    </div>
+    <div class="steps-wrap">
+      <div class="step"><div class="step-n s-o">1</div><h4>Sopralluogo</h4><p>Pianifichiamo le riprese insieme al tuo referente</p></div>
+      <div class="step"><div class="step-n s-n">2</div><h4>Riprese</h4><p>Sessione fotografica e video professionale</p></div>
+      <div class="step"><div class="step-n s-o">3</div><h4>Post-prod.</h4><p>Stitching, branding e hotspot interattivi</p></div>
+      <div class="step"><div class="step-n s-n">4</div><h4>Online!</h4><p>Pubblicazione garantita in 7 giorni lavorativi</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ HOTEL & B&B ══════════ -->
+<div class="page-section" id="page-hotel">
+  <div class="inner dark-bg" style="min-height:38vh;display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="sec-label inv">Hotel &amp; B&amp;B</div>
+    <h2 class="sec-title inv">Più prenotazioni.<br/>Meno <span class="o">cancellazioni.</span></h2>
+    <p class="sec-sub inv">Il tour virtuale 360° che aumenta le prenotazioni dirette, migliora la visibilità su Google e riduce le disdette. Su Google Maps, Booking.com e Airbnb.</p>
+  </div>
+
+  <div class="inner">
+    <div class="sec-label">Per segmento</div>
+    <h2 class="sec-title">Il piano <span class="o">giusto</span> per la tua struttura</h2>
+    <div class="sector-nav">
+      <button class="snav-btn active" onclick="switchSector('hotel','hotel-bb')">🏡 B&amp;B</button>
+      <button class="snav-btn" onclick="switchSector('hotel','hotel-hotel')">🏨 Hotel 3–4★</button>
+      <button class="snav-btn" onclick="switchSector('hotel','hotel-resort')">🌴 Resort Luxury</button>
+    </div>
+
+    <div class="sector-content active" id="hotel-bb">
+      <div class="grid-2" style="gap:32px;align-items:start">
+        <div class="piano">
+          <div class="piano-badge">Starter · B&amp;B</div>
+          <div class="piano-target">B&amp;B · Affittacamere · Case vacanza</div>
+          <h3>Essenziale</h3>
+          <div class="piano-price">€990<small> una tantum</small></div>
+          <ul>
+            <li>Tour 360° fino a 5 ambienti</li>
+            <li>Google Business Profile</li>
+            <li>Embed per il sito web</li>
+            <li>Ottimizzato per Airbnb e Booking</li>
+            <li>1 revisione inclusa · 7 giorni</li>
+          </ul>
+          <button class="btn btn-primary btn-full" onclick="showPage('contatti')" style="margin-top:20px">Richiedi preventivo →</button>
+        </div>
+        <div>
+          <h3 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--navy);margin-bottom:16px">Perché funziona per i B&amp;B</h3>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--off);border-radius:12px;border:1px solid var(--border)"><span style="font-size:22px">💰</span><div><div style="font-weight:700;color:var(--navy);margin-bottom:4px;font-family:'Nunito',sans-serif">ROI con la prima prenotazione extra</div><div style="font-size:13px;color:var(--muted)">A €80/notte media, bastano 13 notti extra all'anno per un ROI completo.</div></div></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--off);border-radius:12px;border:1px solid var(--border)"><span style="font-size:22px">📱</span><div><div style="font-weight:700;color:var(--navy);margin-bottom:4px;font-family:'Nunito',sans-serif">Visibile su Airbnb e Booking</div><div style="font-size:13px;color:var(--muted)">Le piattaforme premiano i contenuti immersivi nella visibilità dei risultati.</div></div></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--off);border-radius:12px;border:1px solid var(--border)"><span style="font-size:22px">❤️</span><div><div style="font-weight:700;color:var(--navy);margin-bottom:4px;font-family:'Nunito',sans-serif">L'atmosfera che vende</div><div style="font-size:13px;color:var(--muted)">Le persone scelgono il B&amp;B per l'atmosfera — il tour la fa vivere prima di arrivare.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sector-content" id="hotel-hotel">
+      <div class="grid-3">
+        <div class="piano"><div class="piano-badge">Hotel 3★</div><div class="piano-target">Hotel 3 stelle</div><h3>Professionale</h3><div class="piano-price">€1.490<small> u.t.</small></div><ul><li>Tour 360° fino a 15 ambienti</li><li>Google + Booking.com</li><li>Hotspot interattivi</li><li>SEO locale inclusa</li><li>Analytics 6 mesi</li></ul><button class="btn btn-outline btn-full" onclick="showPage('contatti')" style="margin-top:16px">Preventivo →</button></div>
+        <div class="piano feat"><div class="piano-badge">⭐ Hotel 4★</div><div class="piano-target">Hotel 4 stelle · Boutique hotel</div><h3>Professionale+</h3><div class="piano-price">€1.990<small> u.t.</small></div><ul><li>Tour 360° ambienti illimitati</li><li>Google + Booking + Airbnb</li><li>Video ambientale 60 sec</li><li>Branding completo</li><li>Analytics 12 mesi · 3 revisioni</li></ul><button class="btn btn-primary btn-full" onclick="showPage('contatti')" style="margin-top:16px">Preventivo →</button></div>
+        <div class="piano"><div class="piano-badge">Agriturismo</div><div class="piano-target">Agriturismo · Country resort</div><h3>Country Experience</h3><div class="piano-price">€1.490<small> u.t.</small></div><ul><li>Tour 360° fino a 12 ambienti</li><li>Google + sito web</li><li>Hotspot su servizi e territorio</li><li>Analytics 6 mesi</li></ul><button class="btn btn-outline btn-full" onclick="showPage('contatti')" style="margin-top:16px">Preventivo →</button></div>
+      </div>
+    </div>
+
+    <div class="sector-content" id="hotel-resort">
+      <div class="grid-2" style="gap:24px">
+        <div class="piano feat"><div class="piano-badge">Luxury</div><div class="piano-target">Resort 5★ · Boutique hotel di lusso</div><h3>Luxury Full</h3><div class="piano-price">€2.490<small> una tantum</small></div><ul><li>Tour 360° ambienti illimitati</li><li>Distribuzione multi-piattaforma</li><li>Video 360° + audio ambientale</li><li>Compatibile visori VR</li><li>Storytelling visivo personalizzato</li><li>Analytics 12 mesi + supporto 1 anno</li></ul><button class="btn btn-primary btn-full" onclick="showPage('contatti')" style="margin-top:20px">Richiedi preventivo →</button></div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="card"><h3>🌐 Distribuzione globale</h3><p>Google Maps · Booking.com · Airbnb · TripAdvisor · Il tuo sito · Social Media · Visori VR. Un solo tour, ovunque.</p></div>
+          <div class="card"><h3>📊 Analytics reali</h3><p>Quante persone hanno visitato il tour, da quale paese, quale ambiente guardano di più. Dati per 12 mesi inclusi.</p></div>
+          <div class="card"><h3>🎨 Branding premium</h3><p>Il tour riflette l'identità visiva del tuo resort: colori, logo, font e storytelling coerenti con il posizionamento luxury.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOTEL GALLERY UPLOAD -->
+  <div class="inner light-bg">
+    <div class="sec-label">Portfolio Hotel</div>
+    <h2 class="sec-title">I nostri <span class="o">lavori</span> nel settore hospitality</h2>
+    <div class="photo-zone" id="zone-hotel" ondragover="handleDrag(event,'zone-hotel')" ondragleave="removeDrag('zone-hotel')" ondrop="handleDrop(event,'zone-hotel','prev-hotel')">
+      <input type="file" id="up-hotel" accept="image/*" multiple onchange="handleZoneUpload(this,'zone-hotel','prev-hotel')">
+      <span class="photo-zone-icon">🏨</span>
+      <h4>Carica foto di hotel e strutture ricettive</h4>
+      <p>Trascina qui le foto oppure clicca · JPG, PNG, WebP · Max 10MB</p>
+      <span class="pz-badge">Portfolio Hotel &amp; B&amp;B</span>
+    </div>
+    <div class="photo-preview" id="prev-hotel"></div>
+  </div>
+</div>
+
+<!-- ══════════ NEGOZI & LUXURY ══════════ -->
+<div class="page-section" id="page-negozi">
+  <div class="inner dark-bg" style="min-height:38vh;display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="sec-label inv">Store, Luxury &amp; Cantine</div>
+    <h2 class="sec-title inv">L'esperienza del brand<br/>inizia <span class="o">online.</span></h2>
+    <p class="sec-sub inv">Boutique, gioiellerie, showroom, cantine vinicole, SPA di lusso. Il tour virtuale porta i clienti all'interno prima ancora che varchino la porta.</p>
+  </div>
+
+  <div class="inner">
+    <div class="sector-nav">
+      <button class="snav-btn active" onclick="switchSector('negozi','n-luxury')">💎 Luxury Store</button>
+      <button class="snav-btn" onclick="switchSector('negozi','n-cantina')">🍷 Cantine</button>
+      <button class="snav-btn" onclick="switchSector('negozi','n-museo')">🏛️ Musei</button>
+      <button class="snav-btn" onclick="switchSector('negozi','n-nautica')">⛵ Nautica</button>
+    </div>
+
+    <div class="sector-content active" id="n-luxury">
+      <div class="grid-2" style="gap:32px;align-items:start">
+        <div>
+          <h3 style="font-family:'Nunito',sans-serif;font-size:22px;font-weight:800;color:var(--navy);margin-bottom:12px">Per boutique e store premium</h3>
+          <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:20px">L'atmosfera di un luxury store è il tuo vantaggio competitivo. Ma chi non entra fisicamente non può percepirla — finché non c'è il tour virtuale.</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:14px;background:var(--off);border-radius:10px;border:1px solid var(--border)"><span>✨</span><div><b style="color:var(--navy);font-family:'Nunito',sans-serif">Vendi l'atmosfera online</b><p style="font-size:13px;color:var(--muted);margin-top:3px">I clienti luxury comprano l'esperienza. Il tour la mostra prima dell'acquisto.</p></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:14px;background:var(--off);border-radius:10px;border:1px solid var(--border)"><span>📱</span><div><b style="color:var(--navy);font-family:'Nunito',sans-serif">Reel per Instagram</b><p style="font-size:13px;color:var(--muted);margin-top:3px">Un Reel con il tour fa numeri che le foto standard non faranno mai.</p></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:14px;background:var(--off);border-radius:10px;border:1px solid var(--border)"><span>🌍</span><div><b style="color:var(--navy);font-family:'Nunito',sans-serif">Clienti internazionali</b><p style="font-size:13px;color:var(--muted);margin-top:3px">Turisti da fuori Sardegna scoprono il tuo store online prima di arrivare.</p></div></div>
+          </div>
+        </div>
+        <div class="piano feat">
+          <div class="piano-badge">Luxury</div>
+          <div class="piano-target">Boutique · Gioiellerie · Showroom · SPA</div>
+          <h3>Luxury Experience</h3>
+          <div class="piano-price">€2.490<small> una tantum</small></div>
+          <ul><li>Tour 360° ambienti illimitati</li><li>Video 360° atmosferico 2 min</li><li>Hotspot su prodotti e servizi</li><li>Branding e stile premium</li><li>Google + sito + social</li><li>Analytics 12 mesi · Supporto 1 anno</li></ul>
+          <button class="btn btn-primary btn-full" onclick="showPage('contatti')" style="margin-top:20px">Richiedi preventivo →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sector-content" id="n-cantina">
+      <div class="grid-2" style="gap:32px;align-items:start">
+        <div class="piano">
+          <div class="piano-badge">🍷 Wine Tourism</div>
+          <div class="piano-target">Cantine vinicole · Agriturismi vinicoli</div>
+          <h3>Cantina Experience</h3>
+          <div class="piano-price">€1.990<small> una tantum</small></div>
+          <ul><li>Tour 360°: vigneti, barriccaia, degustazione</li><li>Video 360° della cantina</li><li>Hotspot su vini e territori</li><li>Google Maps + e-commerce</li><li>Versioni social wine tourism</li><li>Analytics 12 mesi</li></ul>
+          <button class="btn btn-primary btn-full" onclick="showPage('contatti')" style="margin-top:20px">Richiedi preventivo →</button>
+        </div>
+        <div>
+          <h3 style="font-family:'Nunito',sans-serif;font-size:22px;font-weight:800;color:var(--navy);margin-bottom:14px">Wine tourism digitale</h3>
+          <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:16px">La Sardegna è meta crescente del wine tourism internazionale. Un tour virtuale porta i buyer stranieri "dentro" la cantina prima ancora della visita fisica.</p>
+          <div class="quote-box">"I buyer tedeschi e svizzeri hanno cominciato a contattarci dopo il tour virtuale della cantina. Non ci avrebbero mai trovati altrimenti."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sector-content" id="n-museo">
+      <div class="grid-3">
+        <div class="piano"><div class="piano-badge">Museo</div><div class="piano-target">Musei pubblici</div><h3>Cultural Tour</h3><div class="piano-price">€1.990<small> u.t.</small></div><ul><li>Tour 360° sale espositive</li><li>Hotspot sulle opere</li><li>Google Arts &amp; Culture</li><li>Multilingua disponibile</li></ul><button class="btn btn-outline btn-full" onclick="showPage('contatti')" style="margin-top:16px">Preventivo →</button></div>
+        <div class="piano feat"><div class="piano-badge">⭐ Galleria</div><div class="piano-target">Gallerie private · Arte contemporanea</div><h3>Gallery Premium</h3><div class="piano-price">€2.490<small> u.t.</small></div><ul><li>Tour 360° + catalogo immersivo</li><li>Hotspot con artista e prezzo</li><li>Link acquisto diretto</li><li>Video presentazione</li><li>Analytics + supporto</li></ul><button class="btn btn-primary btn-full" onclick="showPage('contatti')" style="margin-top:16px">Preventivo →</button></div>
+        <div class="card" style="background:var(--off)"><div class="card-icon">🌍</div><h3>Accessibilità globale</h3><p>Un ricercatore di Tokyo, una classe di Berlino, un collezionista di Londra: visitano la tua galleria 24 ore su 24 da tutto il mondo.</p><div style="margin-top:14px;padding:12px;background:linear-gradient(135deg,rgba(245,130,13,.08),rgba(74,158,214,.06));border-radius:8px;font-size:13px;color:var(--navy);font-weight:600">Chi visita online, spesso poi viene fisicamente.</div></div>
+      </div>
+    </div>
+
+    <div class="sector-content" id="n-nautica">
+      <div class="grid-2" style="gap:32px">
+        <div class="piano feat"><div class="piano-badge">⛵ Nautica</div><div class="piano-target">Yacht · Barche · Imbarcazioni</div><h3>Nautica 360°</h3><div class="piano-price">€1.990<small> una tantum</small></div><ul><li>Tour 360° di tutti gli ambienti</li><li>Hotspot su dotazioni tecniche</li><li>Video immersivo 60 sec</li><li>Integrazione piattaforme nautiche</li><li>Versioni social e presentazioni</li><li>Analytics 6 mesi</li></ul><button class="btn btn-primary btn-full" onclick="showPage('contatti')" style="margin-top:20px">Richiedi preventivo →</button></div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <h3 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--navy)">Perché funziona per la nautica</h3>
+          <p style="font-size:14px;color:var(--muted);line-height:1.8">Gli acquirenti di yacht vengono da tutto il mondo. Un tour virtuale riduce i costi di visita e accelera la decisione d'acquisto.</p>
+          <div style="display:flex;gap:10px;align-items:center;padding:12px;background:var(--off);border-radius:10px;font-size:13.5px;color:var(--ink)"><span>🌊</span>Esplorabile da qualsiasi porto del mondo</div>
+          <div style="display:flex;gap:10px;align-items:center;padding:12px;background:var(--off);border-radius:10px;font-size:13.5px;color:var(--ink)"><span>📐</span>Hotspot tecnici su motori e dotazioni</div>
+          <div style="display:flex;gap:10px;align-items:center;padding:12px;background:var(--off);border-radius:10px;font-size:13.5px;color:var(--ink)"><span>💼</span>Integrazione con broker e charter</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEGOZI GALLERY -->
+  <div class="inner light-bg">
+    <div class="sec-label">Portfolio</div>
+    <h2 class="sec-title">Esempi <span class="o">store &amp; luxury</span></h2>
+    <div class="photo-zone" ondragover="handleDrag(event,'zone-negozi')" ondragleave="removeDrag('zone-negozi')" ondrop="handleDrop(event,'zone-negozi','prev-negozi')" id="zone-negozi">
+      <input type="file" id="up-negozi" accept="image/*" multiple onchange="handleZoneUpload(this,'zone-negozi','prev-negozi')">
+      <span class="photo-zone-icon">💎</span>
+      <h4>Carica foto di store, boutique e cantine</h4>
+      <p>Trascina qui le immagini oppure clicca per selezionarle</p>
+      <span class="pz-badge">Portfolio Store &amp; Luxury</span>
+    </div>
+    <div class="photo-preview" id="prev-negozi"></div>
+  </div>
+</div>
+
+<!-- ══════════ UNIVERSITÀ ══════════ -->
+<div class="page-section" id="page-universita">
+  <div class="inner" style="background:linear-gradient(145deg,var(--nd) 0%,#1a1f4e 60%,var(--nl) 100%);min-height:38vh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden">
+    <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(91,79,207,0.22) 0%,transparent 65%);top:-120px;right:-80px"></div>
+    <div class="sec-label inv" style="position:relative;z-index:1">Università &amp; Campus</div>
+    <h2 class="sec-title inv" style="position:relative;z-index:1">Il campus che il mondo<br/>vuole <span style="color:#A89EFF">esplorare.</span></h2>
+    <p class="sec-sub inv" style="position:relative;z-index:1">Tour virtuali 360° e video immersivi per campus, facoltà e laboratori. Studenti internazionali da ogni parte del mondo — 24 ore su 24.</p>
+  </div>
+
+  <div class="inner">
+    <div class="sec-label" style="color:var(--purple)"><span style="width:18px;height:2px;background:var(--purple);display:inline-block;margin-right:10px"></span>Pacchetti Università</div>
+    <h2 class="sec-title">Tour 360° e Video VR<br/>per <span style="color:var(--purple)">campus e atenei</span></h2>
+
+    <div class="seg-tabs">
+      <div class="seg-tab active" onclick="switchSeg('u-tour')">🔵 Tour 360°</div>
+      <div class="seg-tab" onclick="switchSeg('u-video')">🎬 Video 360°/180°</div>
+      <div class="seg-tab" onclick="switchSeg('u-combo')">⭐ Pacchetto Completo</div>
+    </div>
+
+    <div class="seg-panel active" id="u-tour">
+      <div class="grid-3">
+        <div class="piano"><div class="piano-badge">Starter</div><div class="piano-target">Piccoli atenei · Singola facoltà</div><h3>Campus Essenziale</h3><div class="piano-price">€1.390<small> u.t.</small></div><ul><li>Tour 360° fino a 8 ambienti</li><li>Hotspot informativi</li><li>Google Business + embed</li><li>1 revisione · 7 giorni</li></ul><button class="btn btn-outline btn-full" onclick="showPage('contatti')" style="margin-top:16px;border-color:var(--purple);color:var(--purple)">Preventivo →</button></div>
+        <div class="piano feat"><div class="piano-badge">⭐ Più Scelto</div><div class="piano-target">Atenei medi · Multi-facoltà</div><h3>Campus Pro</h3><div class="piano-price">€2.390<small> u.t.</small></div><ul><li>Tour 360° fino a 20 ambienti</li><li>Hotspot avanzati + mappa interattiva</li><li>Navigazione per facoltà</li><li>Branding ateneo integrato</li><li>SEO + Google Maps</li><li>Analytics 12 mesi · 2 revisioni</li></ul><button class="btn btn-primary btn-full" onclick="showPage('contatti')" style="margin-top:16px">Scegli →</button></div>
+        <div class="piano"><div class="piano-badge">Premium</div><div class="piano-target">Grandi atenei · Campus completo</div><h3>Campus Full</h3><div class="piano-price">€3.990<small> u.t.</small></div><ul><li>Tour 360° ambienti illimitati</li><li>Mappa georeferenziata</li><li>Tour separati per facoltà</li><li>VR Ready per eventi</li><li>Analytics 24 mesi · Supporto 2 anni</li></ul><button class="btn btn-outline btn-full" onclick="showPage('contatti')" style="margin-top:16px;border-color:var(--purple);color:var(--purple)">Preventivo →</button></div>
+      </div>
+    </div>
+
+    <div class="seg-panel" id="u-video">
+      <div class="video-service-box">
+        <h3 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--navy);margin-bottom:8px">🎬 Video Immersivi per Università</h3>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:20px">Realizziamo video 360° e 180° VR per presentare il campus a studenti internazionali, per gli Open Day digitali e per eventi istituzionali. <strong style="color:var(--navy)">Preventivo personalizzato su richiesta.</strong></p>
+        <div class="vsb-grid">
+          <div class="vsb-item"><h4>🎥 Intro 180° VR</h4><p>Video 180° stereoscopico fino a 3 minuti con sottotitoli IT+EN. Ottimizzato per YouTube 360° e visori VR.</p></div>
+          <div class="vsb-item"><h4>🌐 Campus Showreel</h4><p>Video 360° fino a 6 minuti con voiceover, sottotitoli in 3 lingue e versioni per tutti i canali social.</p></div>
+          <div class="vsb-item"><h4>📸 Open Day 360°</h4><p>Riprese live dell'Open Day in 360°. Montaggio e consegna entro 72 ore — poi disponibile tutto l'anno.</p></div>
+        </div>
+        <div style="margin-top:20px;text-align:center">
+          <button class="btn btn-primary" onclick="showPage('contatti')">Richiedi preventivo video università →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="seg-panel" id="u-combo">
+      <div style="background:linear-gradient(135deg,var(--nd),var(--navy));border-radius:16px;padding:32px 36px;margin-bottom:20px">
+        <div style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;background:linear-gradient(90deg,var(--orange),var(--purple));color:white;margin-bottom:12px">⭐ Pacchetto Completo</div>
+        <h3 style="font-family:'Nunito',sans-serif;font-size:24px;font-weight:900;color:white;margin-bottom:8px">Campus Pro + Showreel + Analytics</h3>
+        <p style="font-size:14px;color:rgba(255,255,255,.5);margin-bottom:24px">Tour 360° navigabile + video cinematografico 360° + analytics 12 mesi. Tutto in un unico pacchetto.</p>
+        <div class="grid-3" style="gap:14px;margin-bottom:24px">
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px"><h4 style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:6px">🔵 Campus Pro</h4><p style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.7">Tour 360° 20 ambienti, hotspot avanzati, mappa, SEO.</p></div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px"><h4 style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:6px">🎬 Showreel 360°</h4><p style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.7">Video 6 min, voiceover, 3 lingue, social inclusi.</p></div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px"><h4 style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:6px">📊 Analytics 12m</h4><p style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.7">Report visite, paesi, ambienti più visti.</p></div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+          <div><div style="font-size:12px;color:rgba(255,255,255,.3);text-decoration:line-through;margin-bottom:4px">Valore separato: ~€3.880</div><div style="font-family:'Nunito',sans-serif;font-size:42px;font-weight:900;color:var(--orange);line-height:1">€3.190<small style="font-size:14px;font-weight:400;color:rgba(255,255,255,.4)"> u.t.</small></div></div>
+          <div style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.7">Risparmio di <strong style="color:var(--ol)">€690</strong> rispetto ai servizi separati.</div>
+          <button class="btn btn-primary" onclick="showPage('contatti')">Richiedi preventivo →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIV GALLERY -->
+  <div class="inner light-bg">
+    <div class="sec-label">Portfolio</div>
+    <h2 class="sec-title">Esempi <span style="color:var(--purple)">campus &amp; università</span></h2>
+    <div class="photo-zone" id="zone-univ">
+      <input type="file" id="up-univ" accept="image/*" multiple onchange="handleZoneUpload(this,'zone-univ','prev-univ')">
+      <span class="photo-zone-icon">🎓</span>
+      <h4>Carica foto di campus e strutture universitarie</h4>
+      <p>Aule, laboratori, biblioteche, residenze, spazi sportivi</p>
+      <span class="pz-badge">Portfolio Università</span>
+    </div>
+    <div class="photo-preview" id="prev-univ"></div>
+  </div>
+</div>
+
+<!-- ══════════ TECNOLOGIA ══════════ -->
+<div class="page-section" id="page-tecnologia">
+  <div class="inner dark-bg" style="min-height:36vh;display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="sec-label inv">Tecnologia</div>
+    <h2 class="sec-title inv">Attrezzatura <span class="o">professionale</span>,<br/>risultati cinema</h2>
+    <p class="sec-sub inv">Fotocamere 360°, videocamere VR 180°/360°, scanner LiDAR Matterport Pro3, audio spaziale binaural. Nessun compromesso sulla qualità.</p>
+  </div>
+
+  <div class="inner">
+    <div class="grid-2" style="gap:20px">
+      <div class="card"><div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:52px;height:52px;border-radius:13px;background:linear-gradient(135deg,rgba(245,130,13,.12),rgba(245,130,13,.06));display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">📷</div><h3 style="margin:0">Fotocamere 360°</h3></div><p>Sensori ad alta risoluzione con HDR processing e stitching automatico professionale. Tour nitidi su qualsiasi dispositivo.</p><div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px"><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(245,130,13,0.08);color:var(--od)">8K+</span><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(245,130,13,0.08);color:var(--od)">HDR</span><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(245,130,13,0.08);color:var(--od)">Auto Stitching</span></div></div>
+      <div class="card"><div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:52px;height:52px;border-radius:13px;background:rgba(91,79,207,.1);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🎬</div><h3 style="margin:0">Videocamere 360°/180° VR</h3></div><p>360° sferico completo o 180° stereoscopico VR. Compatibile Meta Quest, PSVR, Apple Vision Pro. Audio spaziale binaural.</p><div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px"><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(91,79,207,0.08);color:var(--purple)">6K/8K</span><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(91,79,207,0.08);color:var(--purple)">VR Stereo</span><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(91,79,207,0.08);color:var(--purple)">Spatial Audio</span></div></div>
+      <div class="card"><div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:52px;height:52px;border-radius:13px;background:rgba(26,122,110,.1);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🔬</div><h3 style="margin:0">Scanner LiDAR Matterport Pro3</h3></div><p>Scansione laser per Digital Twin di precisione. Modelli 3D navigabili, misurazioni e planimetrie digitali. Per strutture complesse.</p><div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px"><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(26,122,110,0.08);color:var(--teal)">LiDAR</span><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(26,122,110,0.08);color:var(--teal)">3D Model</span><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(26,122,110,0.08);color:var(--teal)">Planimetrie</span></div></div>
+      <div class="card"><div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:52px;height:52px;border-radius:13px;background:rgba(74,158,214,.1);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🌐</div><h3 style="margin:0">Distribuzione Multi-piattaforma</h3></div><p>Google Maps · Booking.com · Airbnb · YouTube 360° · Facebook 360° · Il tuo sito · Visori VR. Un solo contenuto ottimizzato per ogni piattaforma.</p><div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px"><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(74,158,214,0.08);color:var(--blue)">Google</span><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(74,158,214,0.08);color:var(--blue)">YouTube 360°</span><span style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(74,158,214,0.08);color:var(--blue)">VR Ready</span></div></div>
+    </div>
+  </div>
+
+  <!-- TECH GALLERY -->
+  <div class="inner light-bg">
+    <div class="sec-label">Attrezzatura</div>
+    <h2 class="sec-title">Foto dell'<span class="o">attrezzatura</span></h2>
+    <div class="photo-zone" id="zone-tech">
+      <input type="file" id="up-tech" accept="image/*" multiple onchange="handleZoneUpload(this,'zone-tech','prev-tech')">
+      <span class="photo-zone-icon">⚙️</span>
+      <h4>Carica foto dell'attrezzatura professionale</h4>
+      <p>Fotocamere, scanner LiDAR, videocamere VR</p>
+      <span class="pz-badge">Attrezzatura</span>
+    </div>
+    <div class="photo-preview" id="prev-tech"></div>
+  </div>
+</div>
+
+<!-- ══════════ CONTATTI ══════════ -->
+<div class="page-section" id="page-contatti">
+  <div class="inner dark-bg" style="min-height:36vh;display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="sec-label inv">Contatti</div>
+    <h2 class="sec-title inv">Inizia con una<br/><span class="o">demo gratuita</span></h2>
+    <p class="sec-sub inv">Nessun impegno. Compila il form e ti contatteremo entro 24 ore.</p>
+  </div>
+
+  <div class="inner">
+    <div class="grid-2" style="gap:48px;align-items:start">
+      <div class="contact-form">
+        <h3 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--navy);margin-bottom:18px">Richiedi un preventivo gratuito</h3>
+        <div class="form-row">
+          <div class="fg"><label>Nome *</label><input type="text" placeholder="Il tuo nome" autocomplete="given-name"></div>
+          <div class="fg"><label>Cognome</label><input type="text" placeholder="Cognome" autocomplete="family-name"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>Email *</label><input type="email" placeholder="email@esempio.it" autocomplete="email"></div>
+          <div class="fg"><label>Telefono</label><input type="tel" placeholder="+39 XXX XXX XXXX" autocomplete="tel"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg full"><label>Tipo struttura</label>
+            <select autocomplete="off">
+              <option value="">Seleziona...</option>
+              <option>Hotel / Resort</option><option>B&amp;B / Affittacamere</option>
+              <option>Negozio / Store Luxury</option><option>Cantina Vinicola</option>
+              <option>Museo / Galleria</option><option>Università / Campus</option>
+              <option>Nautica / Yacht</option><option>Immobiliare</option>
+              <option>Industria / Azienda</option><option>Altro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg full"><label>Servizio di interesse</label>
+            <select autocomplete="off">
+              <option value="">Seleziona...</option>
+              <option>Tour 360° Navigabile</option>
+              <option>Video 360°/180° VR</option>
+              <option>Scansione LiDAR / Digital Twin</option>
+              <option>Pacchetto Tour + Video</option>
+              <option>Consulenza (non so ancora)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg full"><label>Messaggio</label><textarea placeholder="Descrivi brevemente la tua struttura e cosa vorresti ottenere..."></textarea></div>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="submitForm()" style="font-size:16px;padding:16px">🎬 Richiedi Demo Gratuita →</button>
+        <div class="form-success" id="formSuccess">✅ Messaggio inviato! Ti contatteremo entro 24 ore.<br/>commerciale@tourvirtuale.digital</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <h3 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--navy)">Contatti diretti</h3>
+        <div style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--off);border:1px solid var(--border);border-radius:12px"><div style="width:42px;height:42px;border-radius:9px;background:linear-gradient(135deg,rgba(245,130,13,.1),rgba(245,130,13,.05));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</div><div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Email</div><div style="font-size:15px;font-weight:700;color:var(--ink)">commerciale@tourvirtuale.digital</div></div></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--off);border:1px solid var(--border);border-radius:12px"><div style="width:42px;height:42px;border-radius:9px;background:linear-gradient(135deg,rgba(74,158,214,.1),rgba(74,158,214,.05));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🌐</div><div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Sito</div><div style="font-size:15px;font-weight:700;color:var(--ink)">tourvirtuale.digital</div></div></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--off);border:1px solid var(--border);border-radius:12px"><div style="width:42px;height:42px;border-radius:9px;background:linear-gradient(135deg,rgba(26,122,110,.1),rgba(26,122,110,.05));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📍</div><div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Area</div><div style="font-size:15px;font-weight:700;color:var(--ink)">Sardegna · Italia su richiesta</div></div></div>
+
+        <div style="background:linear-gradient(135deg,var(--od),var(--orange),var(--ol));border-radius:14px;padding:24px;text-align:center;margin-top:4px">
+          <div style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:white;margin-bottom:6px">Demo in 24 ore</div>
+          <p style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:14px">Videochiamata o sopralluogo gratuito, senza impegno.</p>
+          <div style="font-family:'Nunito',sans-serif;font-size:15px;font-style:italic;font-weight:300;color:rgba(255,255,255,.8)">"<strong style="font-style:normal;color:white">Entra. Esplora. Scegli.</strong>"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <img src="https://static.wixstatic.com/media/dcfe46_f18faf4ffa094f0595c9560d809cb9fe~mv2.png/v1/fill/w_100,h_100,al_c,q_85,enc_avif,quality_auto/image.png"
+          height="36" style="object-fit:contain"
+          alt="logo"
+          onerror="this.style.display='none'">
+        <div class="foot-logo-text">tourvirtuale<span>.digital</span></div>
+      </div>
+      <p>Tour virtuali 360°, video immersivi e Digital Twin LiDAR per hotel, negozi, università e aziende.</p>
+      <div style="margin-top:12px;font-size:13px;font-style:italic;color:rgba(255,255,255,.3)">"<strong style="color:var(--ol);font-style:normal">Entra. Esplora. Scegli.</strong>"</div>
+    </div>
+    <div class="foot-col">
+      <h4>Servizi</h4>
+      <a onclick="showPage('servizi')">Tour 360° Navigabili</a>
+      <a onclick="showPage('servizi')">Video 360°/180° VR</a>
+      <a onclick="showPage('tecnologia')">Scansione LiDAR</a>
+      <a onclick="showPage('servizi')">Digital Twin</a>
+    </div>
+    <div class="foot-col">
+      <h4>Settori</h4>
+      <a onclick="showPage('hotel')">Hotel &amp; B&amp;B</a>
+      <a onclick="showPage('negozi')">Luxury &amp; Store</a>
+      <a onclick="showPage('negozi')">Cantine Vinicole</a>
+      <a onclick="showPage('universita')">Università</a>
+      <a onclick="showPage('negozi')">Nautica</a>
+    </div>
+    <div class="foot-col">
+      <h4>Contatti</h4>
+      <a>commerciale@tourvirtuale.digital</a>
+      <a onclick="showPage('contatti')">Demo Gratuita</a>
+      <a onclick="showPage('contatti')">Preventivo</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2025 tourvirtuale.digital — Tutti i diritti riservati</p>
+    <p class="foot-payoff">"<strong>Entra. Esplora. Scegli.</strong>"</p>
+  </div>
+</footer>
+
+<script>
+// ── NAVIGATION ──
+function showPage(id){
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  const p=document.getElementById('page-'+id);
+  if(p) p.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  closeMobile();
+}
+function toggleMobile(){
+  const m=document.getElementById('mobileMenu');
+  const h=document.getElementById('ham');
+  m.classList.toggle('open');
+  h.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+function closeMobile(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('ham').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── SECTOR TABS ──
+function switchSector(page,id){
+  const pg=document.getElementById('page-'+page);
+  if(!pg) return;
+  pg.querySelectorAll('.snav-btn').forEach(b=>b.classList.remove('active'));
+  pg.querySelectorAll('.sector-content').forEach(c=>c.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const c=document.getElementById(id);
+  if(c) c.classList.add('active');
+}
+function switchSeg(id){
+  const pg=document.getElementById('page-universita');
+  pg.querySelectorAll('.seg-tab').forEach(t=>t.classList.remove('active'));
+  pg.querySelectorAll('.seg-panel').forEach(p=>p.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const c=document.getElementById(id);
+  if(c) c.classList.add('active');
+}
+
+// ── PHOTO UPLOAD ──
+function triggerUpload(id){
+  const el=document.getElementById(id);
+  if(el) el.click();
+}
+function addPhoto(input, galleryId){
+  const gallery=document.getElementById(galleryId);
+  if(!input.files||!gallery) return;
+  Array.from(input.files).forEach(file=>{
+    if(!file.type.startsWith('image/')) return;
+    const reader=new FileReader();
+    reader.onload=e=>{
+      // find first placeholder
+      const ph=gallery.querySelector('.gallery-placeholder');
+      if(ph){
+        const img=document.createElement('img');
+        img.src=e.target.result;
+        img.className='gallery-img';
+        img.alt='Portfolio image';
+        gallery.insertBefore(img,ph);
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function handleZoneUpload(input, zoneId, previewId){
+  const preview=document.getElementById(previewId);
+  if(!input.files||!preview) return;
+  Array.from(input.files).forEach(file=>{
+    if(!file.type.startsWith('image/')) return;
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const img=document.createElement('img');
+      img.src=e.target.result;
+      img.className='photo-thumb';
+      img.alt='Upload preview';
+      preview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+  const zone=document.getElementById(zoneId);
+  if(zone) zone.style.borderColor='var(--teal)';
+}
+function handleDrag(e,zoneId){
+  e.preventDefault();
+  const z=document.getElementById(zoneId);
+  if(z) z.classList.add('dragover');
+}
+function removeDrag(zoneId){
+  const z=document.getElementById(zoneId);
+  if(z) z.classList.remove('dragover');
+}
+function handleDrop(e,zoneId,prevId){
+  e.preventDefault();
+  removeDrag(zoneId);
+  const zone=document.getElementById(zoneId);
+  const fakeInput={files:e.dataTransfer.files};
+  handleZoneUpload(fakeInput,zoneId,prevId);
+}
+
+// ── FORM ──
+function submitForm(){
+  const s=document.getElementById('formSuccess');
+  if(s){s.style.display='block';setTimeout(()=>{s.style.display='none'},6000);}
+}
+
+// ── CLOSE MOBILE ON RESIZE ──
+window.addEventListener('resize',()=>{
+  if(window.innerWidth>900) closeMobile();
+});
+</script>
+</body>
+</html>
